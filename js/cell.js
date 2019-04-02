@@ -2,11 +2,14 @@ class cell {
 
     _solid = true;
     _wall = false;
+    _mustCarve = false;
+    _noCarve = false;
     _neighbours = new Array;
     _x = 0;
     _y = 0;
     _xoff = 0;
     _yoff = 0;
+    _dir = ["n", "e", "s" , "w" ]
     
     constructor(x,y) {
         this._solid = true;
@@ -14,6 +17,8 @@ class cell {
         this._y = y;
         this._xoff = x * cs;
         this._yoff = y * cs;
+
+        shuffle(this._dir);
     }
 
     setSolid(){_solid = true;}
@@ -33,14 +38,33 @@ class cell {
     draw(){
         if(this._solid)
         {
-            ctx.fillStyle = "#00FF00";        
+            if( this._noCarve) ctx.fillStyle = "#004400"; else ctx.fillStyle = "#004400";      
         }
         else
         {
-            ctx.fillStyle = "#FFFFFF";
+            if( this._noCarve) ctx.fillStyle = "#EEEEEE"; else ctx.fillStyle = "#FFFFFF";
         }
         ctx.fillRect(this._xoff, this._yoff, cs, cs);
 
+    }
+
+    getDirection(d){
+    
+        // check if all the directions have been used
+        if(this._dir.length == 0) return "x";
+
+        let element = this._dir.indexOf(d)
+
+        // if the current direction has already been used in this cell
+        if( (element == -1)  ){  
+            // choose the last array item in the list as the new direction
+            return this._dir.pop();
+        }
+        //console.log(this._dir);
+        this._dir.splice(element,1);
+        //console.log(this._dir);
+
+        return d;
     }
 
 

@@ -1,8 +1,15 @@
 // set up variables and constants
 
-var mw = 50;  // maze width
-var mh = 50;  // maze height
+var mw = 100;  // maze width
+var mh = 100;  // maze height
 var cs = 8;  // size of a cell on the canvas
+var constDir = .6; // percentage chance of maintaining the same direction
+var joinPC = 0;
+var sideAvoidPC = 1;
+var forwardAvoidPC = 1;
+var deadEndPC = .25;
+var deadSidesPC = 0;
+var roomPC = 0.6;
 
 
 // create the game canvas
@@ -21,5 +28,23 @@ console.log('vars');
 // utility functions library
 
 function getRandom(min, max){
-    return Math.random*(max - min)+min;
+    r = Math.floor(Math.random()*(max - min)+min);
+    return r;
+}
+
+function shuffle(arra1) {
+    var ctr = arra1.length, temp, index;
+
+// While there are elements in the array
+    while (ctr > 0) {
+// Pick a random index
+        index = Math.floor(Math.random() * ctr);
+// Decrease ctr by 1
+        ctr--;
+// And swap the last element with it
+        temp = arra1[ctr];
+        arra1[ctr] = arra1[index];
+        arra1[index] = temp;
+    }
+    return arra1;
 }
