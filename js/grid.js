@@ -1,8 +1,8 @@
 class grid  {
     _gridCells = new Array;
     
-    _solidCell = new cell(-1,-1);
-    _openCell = new cell(-1,-1);
+    _solidCell = new cell(-2,-2);
+    _openCell = new cell(-2,-2);
    
     constructor(){
         this.newGrid();
@@ -10,6 +10,8 @@ class grid  {
     
     newGrid() {
         this._openCell._solid = false;
+        this._openCell._isDrawn = false;
+        this._solidCell._isDrawn = false;
         for (var i = 0; i < mh; i++) {
             for (var j = 0; j < mw; j++) {
                 let c = new cell(j,i);
@@ -20,7 +22,7 @@ class grid  {
 
     getCell(x,y) { 
         if(x<0 || y<0 || x>=mw || y>=mh) return this._openCell    
-        return this._gridCells[x+ mw* y]; 
+        return this._gridCells[ x+ mw* y]; 
     }
 
     // puts a cell in the grid
@@ -70,13 +72,29 @@ class grid  {
 
 
         this.carveCell(Math.floor(mw/2), Math.floor(mh/2),"n");
+ 
+        for(i=0; i<mw; i++){
+            for(j=0; j<mh; j++){
+                if (this.isSolid(i,j) && this.isOpen(i,j+1)){
+                    this.getCell(i,j)._wall = true;
+                }
+
+            }
+        }
+
+ 
+
 
     }
 
     drawMap() {
-        this._gridCells.forEach(element => { 
-            element.draw();
-        });
+
+        for (var i = 0; i < mw; i++) {
+            for (var j = 0; j < mh; j++) {
+                this.drawCellImage(i,j);
+                this.getCell(i,j).draw();
+            }
+        }
     }
 
     carveCell(x,y,d) {
@@ -194,17 +212,123 @@ class grid  {
         }
     }
 
+    drawCellImage(x,y)
+    {
+        let cell = this.getCell(x,y);
+        if (cell._isDrawn) return;
+
+        let c = document.createElement("canvas");
+        c.width = cs;
+        c.height = cs;
+        let ctx = c.getContext("2d");
+
+        
+    
+        if (cell._solid)
+        {
+            ctx.fillStyle = colSolid;
+            ctx.fillRect(0,0, cs, cs);
+
+            // check if it a wall by looking at the one below to see if it is open
+ 
+            if(cell._wall)
+            {
+                ctx.fillStyle = colWall;
+                ctx.fillRect(0,cs/2, cs, cs/2);   
+
+                ctx.strokeStyle = colVeryDarkSolid;
+                ctx.beginPath();
+                ctx.moveTo(0,cs)
+                ctx.lineTo(cs,cs)
+                ctx.stroke();
+
+                ctx.fillStyle = colDarkSolid;
+                ctx.fillRect(0,3*cs/8,cs, cs/8);   
+
+                // check to see if it needs half length sides
+                if(!this.getCell(x-1,y)._solid)
+                {
+                    ctx.fillStyle = colDarkSolid;
+                    ctx.fillRect(0,0,cs/8, cs/2);   
+                }
+                if(!this.getCell(x+1,y)._solid)
+                {
+                    ctx.fillStyle = colDarkSolid;
+                    ctx.fillRect(7*cs/8,0,cs/8, cs/2);   
+                }  
+                
+                
+        
+             
+                
 
 
-//         var t="";
-//         for (var i = 0; i < mh; i++) {
-// //            t += "<p>";
-//             for (var j = 0; j < mw; j++) {
-//                 if(this.isOpen(j,i) ) t+= 'O'; else t+="1";
-//                 draw()
-//             }
-//             t += "</br>";   
-//         }
-        //document.getElementById("grid").innerHTML = t;
+            }
+            else
+            // check to see if it needs sidings on either side because they are open
+            {
+                if(!this.getCell(x-1,y)._solid)
+                {
+                    ctx.fillStyle = colDarkSolid;
+                    ctx.fillRect(0,0,cs/8, cs);   
+                }
+                if(!this.getCell(x+1,y)._solid)
+                {
+                    ctx.fillStyle = colDarkSolid;
+                    ctx.fillRect(7*cs/8,0,cs/8, cs);   
+                }
+
+                if(this.getCell(x-1,y)._wall )
+                {
+                    ctx.fillStyle = colDarkSolid;
+                    ctx.fillRect(0,3*cs/8,cs/8, 5 * cs/4);   
+                }
+                if(this.getCell(x+1,y)._wall )
+                {
+                    ctx.fillStyle = colDarkSolid;
+                    ctx.fillRect(7*cs/8,3*cs/8,cs/8, 5*cs/8);   
+                }        
+
+
+            }
+
+        }
+        else
+        {
+            // an open tile
+            ctx.fillStyle = colOpenMed;
+            ctx.fillRect(0,0, cs, cs);
+            ctx.beginPath();
+            ctx.moveTo(cs/8,cs/8);
+            ctx.lineTo(7*cs/8,cs/8);
+            ctx.lineTo(7*cs/8,7*cs/8)
+            ctx.strokeStyle = colOpenLight;
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(7*cs/8,7*cs/8)
+            ctx.lineTo(cs/8,7*cs/8);
+            ctx.lineTo(cs/8,cs/8)
+            ctx.strokeStyle = colOpenDark;
+            ctx.stroke();
+
+            // check to see if we have a solid below us that overhangs
+            if(this.getCell(x,y+1)._solid)
+            {
+                ctx.fillStyle = colDarkSolid;
+                ctx.fillRect(0,7*cs/8,cs,cs/8);   
+            }
+
+
+        }
+        
+        
+        cell._imgSrc = ctx.getImageData(0,0,cs,cs);
+
+    }
+
+    
+
+
 }
 
+console.log("grid");

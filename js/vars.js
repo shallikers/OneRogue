@@ -1,13 +1,13 @@
 // set up variables and constants
 
-var mw = 100;  // maze width
-var mh = 100;  // maze height
-var cs = 8;  // size of a cell on the canvas
+var mw = 32;  // maze width
+var mh = 64;  // maze height
+var cs = 16;  // size of a cell on the canvas
 var constDir = .6; // percentage chance of maintaining the same direction
 var joinPC = 0;
 var sideAvoidPC = 1;
-var forwardAvoidPC = 1;
-var deadEndPC = .25;
+var forwardAvoidPC = .3;
+var deadEndPC = .1;
 var deadSidesPC = 0;
 var roomPC = 0.6;
 
@@ -17,10 +17,20 @@ var canvas = document.createElement("CANVAS");
 canvas.width = cs*mw;
 canvas.height = cs*mh;
 var ctx = canvas.getContext("2d");
+
 document.body.appendChild(canvas);
 
 //const cWallTop = red;
 
+//colours
+const colSolid = "#004400";
+const colWall = "#006600";
+const colDarkSolid = "#002200";
+const colVeryDarkSolid = "#000000";
+
+const colOpenMed = "#00CCCC"
+const colOpenLight = "#00FFFF"
+const colOpenDark = "#00AAAA"
 
 console.log('vars');
 
@@ -32,7 +42,7 @@ function getRandom(min, max){
     return r;
 }
 
-function shuffle(arra1) {
+function shuffleArray(arra1) {
     var ctr = arra1.length, temp, index;
 
 // While there are elements in the array

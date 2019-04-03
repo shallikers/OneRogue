@@ -7,8 +7,5 @@ var g = new  grid();
 g.createMap();
 g.drawMap();
 
-//Make the canvas
-document.getElementById("grid").innerHTML = "";
-
 
 
