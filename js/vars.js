@@ -1,15 +1,15 @@
 // set up variables and constants
 
-var mw = 32;  // maze width
+var mw = 48;  // maze width
 var mh = 64;  // maze height
-var cs = 16;  // size of a cell on the canvas
-var constDir = .6; // percentage chance of maintaining the same direction
-var joinPC = 0;
-var sideAvoidPC = 1;
-var forwardAvoidPC = .3;
-var deadEndPC = .1;
+var cs = 24;  // size of a cell on the canvas
+var constDir = .0; // percentage chance of maintaining the same direction
+var joinPC = 1;
+var sideAvoidPC = 0;
+var forwardAvoidPC = 0;
+var deadEndPC = 0;
 var deadSidesPC = 0;
-var roomPC = 0.6;
+var roomPC = 0;
 
 
 // create the game canvas
@@ -23,14 +23,14 @@ document.body.appendChild(canvas);
 //const cWallTop = red;
 
 //colours
-const colSolid = "#004400";
-const colWall = "#006600";
-const colDarkSolid = "#002200";
-const colVeryDarkSolid = "#000000";
+const colSolid = "#737188";
+const colWall = "#555555";
+const colDarkSolid = "#444444";
+const colVeryDarkSolid = "#444444";
 
-const colOpenMed = "#00CCCC"
-const colOpenLight = "#00FFFF"
-const colOpenDark = "#00AAAA"
+const colOpenMed = "#9894A3"
+const colOpenLight = "#848387"
+const colOpenDark = "#5D5C60"
 
 console.log('vars');
 
