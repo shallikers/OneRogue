@@ -13,12 +13,35 @@
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="css/main.css">
    <meta name="theme-color" content="#fafafa">
 
 
 </head>
+
+<style>
+  #grid {
+    background-color:#737188;
+    position:fixed;
+    left: 100px;
+    z-index: -2;
+
+  }
+  
+  .dirbutton {
+    width: 33%;
+    opacity: 0.3;
+    padding: 0px 0px;
+  
+
+  }
+ 
+
+  
+
+</style>
+
 
 <body>
   <!--[if IE]>
@@ -27,8 +50,78 @@
 
   <!-- Add your site or application content here -->
 
-  <div id="grid"></div>
 
+
+  <div id="grid"> </div>
+
+  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" style= "padding:0px; width: 15em; background-color: #737188CC;">
+  
+    <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding " >
+        Decimaster
+    </div>  
+  
+    <div id= "keyData"  class = "w3-container w3-text-white w3-border w3-padding" >
+    <div class="w3-row ">
+        <div class="w3-col s6 w3-left">Health</div>
+        <div id="Health" class="w3-col s6  w3-center">25/50</div>
+      </div>
+      <div class="w3-row ">
+        <div class="w3-col s6  w3-left">Magic</div>
+        <div id="Magic" class="w3-col s6  w3-center">25/50</div>
+      </div>
+      <div class="w3-row ">
+        <div class="w3-col s6 w3-left">Fatigue</div>
+        <div id="Fatigue" class="w3-col s6  w3-center">25/50</div>
+      </div>
+      <div class="w3-row ">
+        <div class="w3-col s6  w3-left">Experience</div>
+        <div id="Experience" class="w3-col s6  w3-center">25/50</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class = " w3-display-middle w3-text-white ">
+    <div class = "w3-container" style="font-size: 0pt ">
+    <img id="dir1" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir4" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir5" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir6" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir7" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir8" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    <img id="dir9" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+  </div>
+  </div>
+  
+
+  <div class= "w3-container w3-bottom w3-row w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px">
+      <div class="w3-col s2 w3-button w3-border w3-hover-teal" style = "background-color: #737188CC;"> 
+          Euip
+      </div> 
+      <div class="w3-col s2 w3-btn w3-border w3-center w3-hover-teal"> 
+         Move
+      </div> 
+      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+          Use
+      </div> 
+      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+          Fire
+      </div> 
+      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+          Cast
+      </div> 
+      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+          Camp
+      </div> 
+  </div>
+  
+ 
+
+
+  <!-- More boiler plate -->
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
@@ -38,6 +131,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.sound.min.js"></script> -->
 
 
+
+
+
+
   <script src="js/vars.js"></script>
   <script src="js/cell.js"></script>
   <script src="js/grid.js"></script>
@@ -45,6 +142,12 @@
 
 
  
+
+
+
+
+
+
 
 
 

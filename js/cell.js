@@ -26,8 +26,7 @@ class cell {
     setSolid(){_solid = true;}
     setOpen(){_solid = false; _wall = false;}
 
-    draw(){
-      
+    draw(){ 
         ctx.putImageData(this._imgSrc,this._xoff,this._yoff);
     }
 

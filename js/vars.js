@@ -1,7 +1,7 @@
 // set up variables and constants
 
 var mw = 48;  // maze width
-var mh = 64;  // maze height
+var mh = 48;  // maze height
 var cs = 24;  // size of a cell on the canvas
 var constDir = .0; // percentage chance of maintaining the same direction
 var joinPC = 1;
@@ -11,6 +11,9 @@ var deadEndPC = 0;
 var deadSidesPC = 0;
 var roomPC = 0;
 
+var cx = 24;
+var cy = 24;
+
 
 // create the game canvas
 var canvas = document.createElement("CANVAS");
@@ -18,7 +21,14 @@ canvas.width = cs*mw;
 canvas.height = cs*mh;
 var ctx = canvas.getContext("2d");
 
-document.body.appendChild(canvas);
+// make a maze image
+//var maze = document.createElement("img");
+
+var gridDIV = document.getElementById("grid");
+gridDIV.appendChild(canvas);
+setCanvasOrigin(cx,cy);
+
+window.addEventListener("resize", setCanvasOrigin);
 
 //const cWallTop = red;
 
@@ -58,3 +68,19 @@ function shuffleArray(arra1) {
     }
     return arra1;
 }
+
+function setCanvasOrigin(){
+   
+   let xo = -cx * cs + window.innerWidth/2;
+
+   let yo = - cy * cs + window.innerHeight/2;
+
+  document.getElementById("grid").style.left = xo+"px";
+  document.getElementById("grid").style.top = yo+"px";
+
+  console.log(xo,yo);
+
+   
+}
+
+

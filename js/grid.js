@@ -74,7 +74,7 @@ class grid  {
         this.carveCell(Math.floor(mw/2), Math.floor(mh/2),"n");
  
         for(i=0; i<mw; i++){
-            for(j=0; j<mh; j++){
+            for(j=0; j<mh-1; j++){
                 if (this.isSolid(i,j) && this.isOpen(i,j+1)){
                     this.getCell(i,j)._wall = true;
                 }
@@ -256,18 +256,12 @@ class grid  {
                     ctx.fillStyle = colDarkSolid;
                     ctx.fillRect(7*cs/8,0,cs/8, cs/2);   
                 }  
-                
-                
-        
-             
-                
-
 
             }
             else
             // check to see if it needs sidings on either side because they are open
             {
-                if(!this.getCell(x-1,y)._solid)
+                if(!this.getCell(x-1,y)._solid && x>0)
                 {
                     ctx.fillStyle = colDarkSolid;
                     ctx.fillRect(0,0,cs/8, cs);   
@@ -288,10 +282,7 @@ class grid  {
                     ctx.fillStyle = colDarkSolid;
                     ctx.fillRect(7*cs/8,3*cs/8,cs/8, 5*cs/8);   
                 }        
-
-
             }
-
         }
         else
         {
@@ -312,13 +303,11 @@ class grid  {
             ctx.stroke();
 
             // check to see if we have a solid below us that overhangs
-            if(this.getCell(x,y+1)._solid)
+            if(this.getCell(x,y+1)._solid )
             {
                 ctx.fillStyle = colDarkSolid;
                 ctx.fillRect(0,7*cs/8,cs,cs/8);   
             }
-
-
         }
         
         
