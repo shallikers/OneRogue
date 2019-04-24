@@ -315,9 +315,54 @@ class grid  {
 
     }
 
+}
+
+// resize
+window.addEventListener("resize", resizeCanvasOrigin);
+
+// grid helper functions
+function resizeCanvasOrigin(){
+    setCanvasOrigin(char._x,char._y);
+}
+
+function setCanvasOrigin(x,y){
+  console.log(x,x*cs,window.innerWidth/2);
+  let xo = -x * cs + window.innerWidth/2 - 0.5*cs - 4;  // cs/2 is so that the origin of the chacter is aligned to the cell
+
+  let yo = -y * cs + window.innerHeight/2 - 0.5*cs ;
+
+  document.getElementById("grid").style.left = xo+"px";
+  document.getElementById("grid").style.top = yo+"px";
+
+  console.log(xo,yo);  
+}
+
+function moveGrid(x0,y0,x1,y1,time,steps){ //time in ms
+    let dx = (x1 - x0)/steps;
+    let dy = (y1 - y0)/steps;
+    let ts = time/steps;
+    moving = true;
+    let stepCount=0;
+    
+    //var elem = document.getElementById("grid");
+    var id = setInterval(frame,time/steps);
+
+    function frame() {
+        stepCount++;
+        if (stepCount>=steps) {
+          clearInterval(id);
+          moving=false;
+          setCanvasOrigin(x1,y1)
+        } else {
+            x0+=dx;
+            y0+=dy;
+            setCanvasOrigin(x0,y0)
+        }
+    }
     
 
 
 }
+
 
 console.log("grid");

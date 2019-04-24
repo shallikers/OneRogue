@@ -4,8 +4,15 @@
 
 
 var g = new  grid();
+
+console.log("construct player");
+
+var char = new player();
+
+console.log("construct grid");
 g.createMap();
 g.drawMap();
+char.placePlayer();
 
 
 

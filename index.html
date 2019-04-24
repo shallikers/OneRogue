@@ -36,6 +36,15 @@
   
 
   }
+
+  #imPlayer{
+    position:fixed;
+    width: 32px;
+    z-index: 2;
+    
+    
+
+  }
  
 
   
@@ -43,7 +52,7 @@
 </style>
 
 
-<body>
+<body style="background-color: #737188">
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
@@ -53,6 +62,8 @@
 
 
   <div id="grid"> </div>
+  <img id="imPlayer" src = "img/imPlayer.png" class="w3-display-middle">
+  
 
   <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" style= "padding:0px; width: 15em; background-color: #737188CC;">
   
@@ -84,22 +95,22 @@
 
   <div class = " w3-display-middle w3-text-white ">
     <div class = "w3-container" style="font-size: 0pt ">
-    <img id="dir1" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir4" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir5" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir6" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir7" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir8" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-    <img id="dir9" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-  </div>
+      <img id="dir1" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir3" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir4" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir5" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir6" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir7" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir8" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+      <img id="dir9" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+    </div>
   </div>
   
 
   <div class= "w3-container w3-bottom w3-row w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px">
       <div class="w3-col s2 w3-button w3-border w3-hover-teal" style = "background-color: #737188CC;"> 
-          Euip
+          Equip
       </div> 
       <div class="w3-col s2 w3-btn w3-border w3-center w3-hover-teal"> 
          Move
@@ -138,8 +149,8 @@
   <script src="js/vars.js"></script>
   <script src="js/cell.js"></script>
   <script src="js/grid.js"></script>
+  <script src="js/char.js"></script>
   <script src="js/main.js"></script>
-
 
  
 
