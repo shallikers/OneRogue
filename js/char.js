@@ -1,29 +1,33 @@
 console.log("init char");
 
 class player {
-    _x = Math.floor(mw/2);
-    _y = Math.floor(mh/2);
 
-    _dx = 0;
-    _dy = 0;
-
-    _mHealth = 100;
-    _mMagic = 100;
-    _mFatigue = 100;
-    _mExperience = 2000
-
-    _health = this._mHealth;
-    _magic = this._mMagic;
-    _fatigue = this._mFatigue
-    _experience = 0;
 
     //_sourceImage = new Image;
     //_renderImage = new Image;
 
-    _created = false;
+    
 
     constructor(){
-        console.log("construct char");
+        console.log("construct char");    
+    
+        this._x = Math.floor(mw/2);
+        this._y = Math.floor(mh/2);
+    
+        this._dx = 0;
+        this._dy = 0;
+    
+        this._mHealth = 100;
+        this._mMagic = 100;
+        this._mFatigue = 100;
+        this._mExperience = 2000
+    
+        this._health = this._mHealth;
+        this._magic = this._mMagic;
+        this._fatigue = this._mFatigue
+        this._experience = 0;
+
+        this._created = false;
  
     }
 
@@ -45,7 +49,7 @@ class player {
             this._x+=getRandom(-1,1);
             this._y+=getRandom(-1,1);
         }
-        console.log(this._x, this._y, g.isOpen(this._x,this._y));
+        //console.log(this._x, this._y, g.isOpen(this._x,this._y));
         setCanvasOrigin(this._x, this._y);
     }
 

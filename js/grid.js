@@ -1,10 +1,14 @@
 class grid  {
-    _gridCells = new Array;
+    // _gridCells = new Array;
     
-    _solidCell = new cell(-2,-2);
-    _openCell = new cell(-2,-2);
+    // _solidCell = new cell(-2,-2);
+    // _openCell = new cell(-2,-2);
    
     constructor(){
+        this._gridCells = new Array;
+    
+        this._solidCell = new cell(-2,-2);
+        this._openCell = new cell(-2,-2);
         this.newGrid();
     }
     
@@ -327,7 +331,12 @@ function resizeCanvasOrigin(){
 
 function setCanvasOrigin(x,y){
   console.log(x,x*cs,window.innerWidth/2);
-  let xo = -x * cs + window.innerWidth/2 - 0.5*cs - 4;  // cs/2 is so that the origin of the chacter is aligned to the cell
+
+  // chrome version
+  //let xo = -x * cs + window.innerWidth/2 - 0.5*cs - 4;  // cs/2 is so that the origin of the chacter is aligned to the cell
+
+  // explorer version
+  let xo = -x * cs + window.innerWidth/2 - cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
 
   let yo = -y * cs + window.innerHeight/2 - 0.5*cs ;
 

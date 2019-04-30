@@ -74,6 +74,16 @@ const colOpenMed = "#9894A3"
 const colOpenLight = "#848387"
 const colOpenDark = "#5D5C60"
 
+// game objects
+
+//console.log("construct grid");
+var g = new grid();
+
+//console.log("construct player");
+var char = new player();
+
+
+
 console.log('vars');
 
 
