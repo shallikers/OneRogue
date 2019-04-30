@@ -333,10 +333,10 @@ function setCanvasOrigin(x,y){
   console.log(x,x*cs,window.innerWidth/2);
 
   // chrome version
-  //let xo = -x * cs + window.innerWidth/2 - 0.5*cs - 4;  // cs/2 is so that the origin of the chacter is aligned to the cell
+  let xo = -x * cs + window.innerWidth/2 - 0.5*cs - 4;  // cs/2 is so that the origin of the chacter is aligned to the cell
 
-  // explorer version
-  let xo = -x * cs + window.innerWidth/2 - cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
+  // explorer version - scroll bar is driving the difference
+  //let xo = -x * cs + window.innerWidth/2 - cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
 
   let yo = -y * cs + window.innerHeight/2 - 0.5*cs ;
 

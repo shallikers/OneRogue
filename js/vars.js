@@ -1,5 +1,8 @@
 // set up variables and constants
 
+// var body = $('body');
+// alert(body.width() + ' - ' + body.innerWidth());
+
 var mw = 40;  // maze width
 var mh = 40;  // maze height
 var cs = 32;  // size of a cell on the canvas
