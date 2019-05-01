@@ -27,14 +27,13 @@
     position:fixed;
     left: 100px;
     z-index: -2;
-
   }
   
   .dirbutton {
     width: 33%;
     opacity: 0.3;
     padding: 0px 0px;
-    overflow:hidden;
+    border: 10px;
   
 
   }
@@ -46,8 +45,52 @@
   }
 
   body{
+    
     background-color: #737188;
-    overflow: hidden;
+    width: 600px;
+    
+  }
+
+  #dirbuttons{
+    font-size: 0pt; 
+    width: 100%;   
+    display: inline-block;
+  }
+
+  @media only screen and (min-width: 600px){
+    /* CSS overrides */
+    body{
+        width : auto;
+        margin: 0 auto;
+    } 
+    #dirbuttons{
+       width:70%;
+    } 
+
+  }
+
+    
+  @media only screen and (min-width: 1024px){
+  /* CSS overrides */
+  #dirbuttons{
+       width:50%;
+    } 
+  }
+ 
+    
+  @media only screen and (min-width: 1366px){
+  /* CSS overrides */
+    body{
+        width : 1366px;
+        margin: 0 auto;
+    }
+    #footer{
+      width:1366px;
+    }
+    #dirbuttons{
+       width:40%;
+    } 
+  }
   }
 
 </style>
@@ -65,12 +108,13 @@
 
 
   <div id="grid"> </div>
+
   <img id="imPlayer" src = "img/imPlayer.png" class="w3-display-middle">
   
 
-  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" style= "padding:0px; width: 15em; background-color: #737188CC;">
+  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" style= "position: fixed; padding:0px; width: 15em; background-color: #737188CC;">
   
-    <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding " >
+    <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding" >
         Decimaster
     </div>  
   
@@ -96,22 +140,23 @@
 
 
 
-  <div class = " w3-display-middle w3-text-white ">
-    <div class = "w3-container" style="font-size: 0pt ">
-      <img id="dir1" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir3" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir4" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir5" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir6" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir7" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir8" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
-      <img id="dir9" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal">
+  <div  class = "w3-display-middle w3-text-white" 
+        style = "text-align: center; position:fixed;">
+      <div id = "dirbuttons" class = "w3-container">
+      <img id="dir1" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir3" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir4" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir5" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir6" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir7" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir8" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir9" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
     </div>
   </div>
   
 
-  <div class= "w3-container w3-bottom w3-row w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px; overflow:hidden ">
+  <div id="footer" class= "w3-container w3-bottom w3-row w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px; overflow:hidden ">
       <div class="w3-col s2 w3-button w3-border w3-hover-teal" style = "background-color: #737188CC;"> 
           Equip
       </div> 

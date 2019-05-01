@@ -43,7 +43,7 @@ class grid  {
     // makes the cell in this location solid
     setSolid(x,y){ this.getCell(x,y)._solid = true;}
    // stops a cell from being carvable
-   setNoCarve(x,y){ this.getCell(x,y)._noCarve = true;}
+   setNoCarve(x,y){ if(!this.getCell(x,y)._mustCarve) {this.getCell(x,y)._noCarve = true;}}
    setMustCarve(x,y){ this.getCell(x,y)._mustCarve = true;}
 
 
@@ -58,37 +58,33 @@ class grid  {
             for(j=0; j<3; j++){
                 if(Math.random()<roomPC)
                 {
-                        w = getRandom(mw/9,Math.floor(mw/4));
-                        h = getRandom(mh/9,Math.floor(mh/4));
-                        x = getRandom(3+Math.floor(mw/3)*i,Math.floor(mw/3)*i + Math.floor((mw/3 - w)/2));
-                        y = getRandom(3+Math.floor(mh/3)*j,Math.floor(mh/3)*j +Math.floor((mh/3 - h)/2));
+                    w = getRandom(mw/9,Math.floor(mw/4));
+                    h = getRandom(mh/9,Math.floor(mh/4));
+                    x = getRandom(3+Math.floor(mw/3)*i,Math.floor(mw/3)*i + Math.floor((mw/3 - w)/2));
+                    y = getRandom(3+Math.floor(mh/3)*j,Math.floor(mh/3)*j +Math.floor((mh/3 - h)/2));
 
-                        for(k=x; k<x+w; k++){
-                            for(l=y; l<y+h; l++)
-                                this.setMustCarve(k,l);
-                                //this.setOpen(x,y);
-                            }
+                    for(k=x; k<x+w; k++){
+                        for(l=y; l<y+h; l++)
+                            this.setMustCarve(k,l);
+                            //this.setOpen(x,y);
+                        }
 
-                }
-            }
-
-        }
-
-
-        this.carveCell(Math.floor(mw/2), Math.floor(mh/2),"n");
- 
-        for(i=0; i<mw; i++){
-            for(j=0; j<mh-1; j++){
-                if (this.isSolid(i,j) && this.isOpen(i,j+1)){
-                    this.getCell(i,j)._wall = true;
+                    }
                 }
 
             }
-        }
-
- 
 
 
+            this.carveCell(Math.floor(mw/2), Math.floor(mh/2),"n");
+    
+            for(i=0; i<mw; i++){
+                for(j=0; j<mh-1; j++){
+                    if (this.isSolid(i,j) && this.isOpen(i,j+1)){
+                        this.getCell(i,j)._wall = true;
+                    }
+
+                }
+            }
     }
 
     drawMap() {
@@ -104,6 +100,7 @@ class grid  {
     carveCell(x,y,d) {
         // if the cell is already carved it should not be carved again
         if(this.isOpen(x,y) || this.getCell(x,y)._noCarve ) return false;
+        
         // if the cell was a must carve cell it is always carved
         if(!this.mustCarve(x,y))
         {
@@ -290,21 +287,53 @@ class grid  {
         }
         else
         {
-            // an open tile
-            ctx.fillStyle = colOpenMed;
-            ctx.fillRect(0,0, cs, cs);
-            ctx.beginPath();
-            ctx.moveTo(cs/8,cs/8);
-            ctx.lineTo(7*cs/8,cs/8);
-            ctx.lineTo(7*cs/8,7*cs/8)
-            ctx.strokeStyle = colOpenLight;
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(7*cs/8,7*cs/8)
-            ctx.lineTo(cs/8,7*cs/8);
-            ctx.lineTo(cs/8,cs/8)
-            ctx.strokeStyle = colOpenDark;
-            ctx.stroke();
+            
+            //an open tile
+            if(cell._mustCarve)
+            {
+                // its a room
+                ctx.fillStyle = colOpenMed;
+                ctx.fillRect(0,0, cs, cs);
+                ctx.beginPath();
+                ctx.moveTo(cs/8,cs/8);
+                ctx.lineTo(7*cs/8,cs/8);
+                ctx.lineTo(7*cs/8,7*cs/8)
+                ctx.strokeStyle = colOpenLight;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(7*cs/8,7*cs/8)
+                ctx.lineTo(cs/8,7*cs/8);
+                ctx.lineTo(cs/8,cs/8)
+                ctx.strokeStyle = colOpenDark;
+                ctx.stroke();
+            }
+            else
+            {
+                 ctx.fillStyle = colOpenMed;
+                 ctx.fillRect(0,0, cs, cs);
+
+                ctx.fillStyle = colOpenGrav;
+                for(let n=0; n<cs*8; n++)
+                {                   
+                     ctx.fillRect(getRandom(0,cs),getRandom(0,cs),3, 3);
+                }
+                ctx.fillRect(0,0, cs, cs);
+                //ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(cs/8,cs/8);
+                ctx.lineTo(7*cs/8,cs/8);
+                ctx.lineTo(7*cs/8,7*cs/8)
+                ctx.strokeStyle = colOpenLight;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(7*cs/8,7*cs/8)
+                ctx.lineTo(cs/8,7*cs/8);
+                ctx.lineTo(cs/8,cs/8)
+                ctx.strokeStyle = colOpenDark;
+                ctx.stroke();
+            }
+
+            
 
             // check to see if we have a solid below us that overhangs
             if(this.getCell(x,y+1)._solid )
@@ -327,6 +356,8 @@ window.addEventListener("resize", resizeCanvasOrigin);
 // grid helper functions
 function resizeCanvasOrigin(){
     setCanvasOrigin(char._x,char._y);
+
+    console.log("inner,outer",window.innerWidth, window.outerWidth);
 }
 
 function setCanvasOrigin(x,y){
