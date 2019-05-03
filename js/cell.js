@@ -20,7 +20,7 @@ class cell {
         this._x = x;
         this._y = y;
         this._xoff = x * cs;
-        this._yoff = y * cs +cs/8;  // the cs/8 is so that the item does not appear in a wall that overhangs the cell
+        this._yoff = y * cs +objectOffset;  // the cs/8 is so that the item does not appear in a wall that overhangs the cell
         this._dir = ["n", "e", "s" , "w" ];
         this._imgSrc;
         this._isDrawn = false;

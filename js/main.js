@@ -6,7 +6,7 @@
 
 g.createMap();
 g.drawMap();
-g.addObjects(30);
+g.addObjects(objsPerLevel);
 char.placePlayer();
 
 

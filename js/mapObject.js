@@ -37,7 +37,7 @@ class mapObject{
 
                 // calculate the draw location
                 this._xoff = g.getCell(this._x,this._y)._xoff;
-                this._yoff = g.getCell(this._x,this._y)._yoff - cs/8;
+                this._yoff = g.getCell(this._x,this._y)._yoff - objectOffset;
                 // store the background
                 this._backgroundImage = ctx.getImageData(this._xoff,this._yoff,cs,cs);
 

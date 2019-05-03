@@ -3,8 +3,8 @@
 
 
 
-var mw = 20;  // maze width
-var mh = 20;  // maze height
+var mw = 40;  // maze width
+var mh = 40;  // maze height
 var cs = 32;  // size of a cell on the canvas
 var charsize = 16; // size of the character graphic
 var constDir = 0; // percentage chance of maintaining the same direction
@@ -14,11 +14,16 @@ var forwardAvoidPC = 0;
 var deadEndPC = 0;
 var deadSidesPC = .5;
 var roomPC = .6;
+var objectOffset = Math.floor(cs/6);
+
+var objsPerLevel = 30;
 
 var cx = 24;
 var cy = 24;
 var moving = false;
 var keepMoving = false;
+
+var animTime = 200;
 
 // var imChars = new Image;
 // var imChar = new Image;

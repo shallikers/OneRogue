@@ -98,7 +98,7 @@ class player {
     }
 
     move(dx,dy){
-        let animTime = 200;
+
         this._dx = dx;
         this._dy = dy;
    
@@ -107,21 +107,28 @@ class player {
             moveGrid(this._x,this._y,this._x+dx,this._y+dy,animTime,4);
             this._x+=dx;
             this._y+=dy;
+            
+            window.setTimeout(interact,animTime);
+
             window.setTimeout(keepMovingCheck,animTime*1.5);
 
             // iteract with the new square
-            this.interactWithLocal()
-
+            //this.interactWithLocal()
         }
         else
         {
             keepMoving = false;
+            moveGrid(this._x,this._y,this._x+dx/4,this._y+dy/4,animTime/2,2);
+            window.setTimeout(bounceBack,animTime*0.8);
+ 
+
         }
 
 
    
    //     setCanvasOrigin(this._x,this._y);
     }
+
 
     interactWithLocal(){
         // if there is a potion in the square remove it
@@ -132,10 +139,22 @@ class player {
             //g.getCell(this._x,this._y).draw();
         }
     }
-}
 
+    bounceBack(){
+//        setCanvasOrigin(this._x,this._y)
+            moveGrid(this._x+this._dx/4,this._y+this._dy/4,this._x,this._y,animTime/2,2);
+
+    }
+}
+function interact(){
+    char.interactWithLocal();
+}
 
 
 function keepMovingCheck(){
     if(keepMoving) char.repeatMove();
+}
+
+function bounceBack(){
+    char.bounceBack();
 }
