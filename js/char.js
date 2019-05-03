@@ -116,12 +116,12 @@ class player {
             //this.interactWithLocal()
         }
         else
-        {
+        {                   
             keepMoving = false;
-            moveGrid(this._x,this._y,this._x+dx/4,this._y+dy/4,animTime/2,2);
-            window.setTimeout(bounceBack,animTime*0.8);
- 
-
+            if(!moving){
+                moveGrid(this._x,this._y,this._x+dx/4,this._y+dy/4,animTime/2,2);
+                window.setTimeout(bounceBack,animTime*0.8);
+            }
         }
 
 

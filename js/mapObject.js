@@ -90,14 +90,43 @@ class potion extends item {
             case "Healing" :
                 this._description = "red"
                 this._useText = "you feel better";
-                //this._image.src = "img/Potions/row-1-col-1.png"
+                this._image.src = "img/Potions/row-1-col-1.png"
                 break;
             case "Extra Healing" :
                 this._description = "crimson"
                 this._useText = "you feel better";
-                //this._image.src = "img/Potions/row-2-col-1.png"
+                this._image.src = "img/Potions/row-1-col-2.png"
                 break;
-            default:
+            case "Magic" :
+                this._description = "red"
+                this._useText = "you feel better";
+                this._image.src = "img/Potions/row-1-col-3.png"
+                break;
+            case "Energy" :
+                this._description = "crimson"
+                this._useText = "you feel better";
+                this._image.src = "img/Potions/row-1-col-4.png"
+                break;
+            case "Poison" :
+                this._description = "red"
+                this._useText = "you feel better";
+                this._image.src = "img/Potions/row-1-col-5.png"
+                break;
+            case "Paralysis" :
+                this._description = "crimson"
+                this._useText = "you feel better";
+                this._image.src = "img/Potions/row-1-col-6.png"
+                break;
+            case "Weakness" :
+                this._description = "red"
+                this._useText = "you feel better";
+                this._image.src = "img/Potions/row-1-col-7.png"
+                break;
+            case "Experience" :
+                this._description = "crimson"
+                this._useText = "you feel better";
+                this._image.src = "img/Potions/row-1-col-8.png"
+            break;             default:
                 this._description = "error: this potion is unknown"
                 _useText = "error: the effect of this potion is unknown"
                 break;

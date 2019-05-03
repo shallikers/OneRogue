@@ -61,7 +61,19 @@ class grid  {
     addObjects(n){
         for(let i=0; i<n; i++)
         {
-            let o = new potion("Healing")
+            let o;
+            let x = getRandom(1,8);
+            switch (x) {
+                case 1: o = new potion("Healing"); break;
+                case 2: o = new potion("Extra Healing"); break;
+                case 3: o = new potion("Magic"); break;
+                case 4: o = new potion("Energy"); break;
+                case 5: o = new potion("Poison"); break;
+                case 6: o = new potion("Paralysis"); break;
+                case 7: o = new potion("Weakness"); break;
+                case 8: o = new potion("Experience"); break;
+            }
+            
             o.placeObject(); 
         }
     }
