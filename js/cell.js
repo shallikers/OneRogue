@@ -19,11 +19,12 @@ class cell {
         this._noCarve = false;
         this._x = x;
         this._y = y;
-        this._xoff = 5+ x * cs;
-        this._yoff = 5+y * cs;
+        this._xoff = x * cs;
+        this._yoff = y * cs +cs/8;  // the cs/8 is so that the item does not appear in a wall that overhangs the cell
         this._dir = ["n", "e", "s" , "w" ];
         this._imgSrc;
         this._isDrawn = false;
+        this._mapObject;
 
  
         shuffleArray(this._dir);

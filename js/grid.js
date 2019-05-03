@@ -24,6 +24,7 @@ class grid  {
         }
     }
 
+    // get a specific cell
     getCell(x,y) { 
         if(x<0 || y<0 || x>=mw || y>=mh) return this._openCell    
         return this._gridCells[ x+ mw* y]; 
@@ -42,10 +43,28 @@ class grid  {
     setOpen(x,y){ this.getCell(x,y)._solid = false;}
     // makes the cell in this location solid
     setSolid(x,y){ this.getCell(x,y)._solid = true;}
-   // stops a cell from being carvable
-   setNoCarve(x,y){ if(!this.getCell(x,y)._mustCarve) {this.getCell(x,y)._noCarve = true;}}
-   setMustCarve(x,y){ this.getCell(x,y)._mustCarve = true;}
 
+    // puts an item in the cell
+    setItem(x,y,o) { this.getCell(x,y)._mapItem = o;}
+    // removes an item in the cell
+    getItem(x,y) { return this.getCell(x,y)._mapItem;}
+    // removes an item in the cell
+    removeItem(x,y) { this.getCell(x,y)._mapItem = NaN; }
+    // check if it has an item
+    hasItem(x,y) { if( (this.getCell(x,y)._mapItem == NaN) || (this.isSolid(x,y)) ) return true; else return false;}
+    
+
+    // stops a cell from being carvable
+    setNoCarve(x,y){ if(!this.getCell(x,y)._mustCarve) {this.getCell(x,y)._noCarve = true;}}
+    setMustCarve(x,y){ this.getCell(x,y)._mustCarve = true;}
+
+    addObjects(n){
+        for(let i=0; i<n; i++)
+        {
+            let o = new potion("Healing")
+            o.placeObject(); 
+        }
+    }
 
     createMap(){
         this.newGrid();
@@ -312,12 +331,21 @@ class grid  {
                  ctx.fillStyle = colOpenMed;
                  ctx.fillRect(0,0, cs, cs);
 
-                ctx.fillStyle = colOpenGrav;
-                for(let n=0; n<cs*8; n++)
-                {                   
-                     ctx.fillRect(getRandom(0,cs),getRandom(0,cs),3, 3);
-                }
-                ctx.fillRect(0,0, cs, cs);
+                ctx.fillStyle = colOpenMed;
+                let r;
+                for (let ii=0; ii<cs;ii+=cs/8){ for(let jj=0; jj<cs; jj+=cs/8){
+                    r = Math.random()
+                    if( r<0.33 ) {
+                        ctx.fillStyle = colOpenGrav;
+                        ctx.fillRect(ii,jj,cs/8,cs/8);
+                    }
+                    else if(r<.66){
+                         ctx.fillStyle = colOpenLight;
+                        ctx.fillRect(ii,jj,cs/8,cs/8);
+                    }
+                }}
+                ctx.fillStyle = colOpenMed;
+                //ctx.fillRect(0,0, cs, cs);
                 //ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.moveTo(cs/8,cs/8);
@@ -364,7 +392,7 @@ function setCanvasOrigin(x,y){
   console.log(x,x*cs,window.innerWidth/2);
 
   // chrome version
-  let xo = -x * cs + window.innerWidth/2 - 0.5*cs - 4;  // cs/2 is so that the origin of the chacter is aligned to the cell
+  let xo = -x * cs + window.innerWidth/2 - 0.5*cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
 
   // explorer version - scroll bar is driving the difference
   //let xo = -x * cs + window.innerWidth/2 - cs;  // cs/2 is so that the origin of the chacter is aligned to the cell

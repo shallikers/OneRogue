@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <link rel="stylesheet" href="css/main.css">
    <meta name="theme-color" content="#fafafa">
 
@@ -25,8 +26,12 @@
   #grid {
     background-color:#737188;
     position:fixed;
-    left: 100px;
     z-index: -2;
+  }
+
+  .tileset {
+    z-index: -3;
+    display: none;
   }
   
   .dirbutton {
@@ -51,10 +56,19 @@
     
   }
 
+  .disabledrag{
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
+
   #dirbuttons{
     font-size: 0pt; 
     width: 100%;   
     display: inline-block;
+    
   }
 
   @media only screen and (min-width: 600px){
@@ -106,13 +120,18 @@
   <!-- Add your site or application content here -->
 
 
+ <!-- The layer with the grid in it below the other layers -->
 
   <div id="grid"> </div>
 
+  <!-- Draw the player centralised in the frame the grid will move under them -->
+
   <img id="imPlayer" src = "img/imPlayer.png" class="w3-display-middle">
+
   
 
-  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" style= "position: fixed; padding:0px; width: 15em; background-color: #737188CC;">
+  <!-- Put the key data in the top left hand corner of the screen floating over the grid -->
+  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" style= "position: fixed; padding:0px; width: 15em; background-color: #737188; opacity: 0.7;">
   
     <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding" >
         Decimaster
@@ -121,42 +140,42 @@
     <div id= "keyData"  class = "w3-container w3-text-white w3-border w3-padding" >
     <div class="w3-row ">
         <div class="w3-col s6 w3-left">Health</div>
-        <div id="Health" class="w3-col s6  w3-center">25/50</div>
+        <div id="Health" class="w3-col s6  w3-center">{{ health }}</div>
       </div>
       <div class="w3-row ">
         <div class="w3-col s6  w3-left">Magic</div>
-        <div id="Magic" class="w3-col s6  w3-center">25/50</div>
+        <div id="Magic" class="w3-col s6  w3-center">{{ magic }}</div>
       </div>
       <div class="w3-row ">
         <div class="w3-col s6 w3-left">Fatigue</div>
-        <div id="Fatigue" class="w3-col s6  w3-center">25/50</div>
+        <div id="Fatigue" class="w3-col s6  w3-center">{{ fatigue }}</div>
       </div>
       <div class="w3-row ">
         <div class="w3-col s6  w3-left">Experience</div>
-        <div id="Experience" class="w3-col s6  w3-center">25/50</div>
+        <div id="Experience" class="w3-col s6  w3-center">{{ experience }}</div>
       </div>
     </div>
   </div>
-
-
-
+  
+ 
+<!-- Draw the control boxes for the player -->
   <div  class = "w3-display-middle w3-text-white" 
         style = "text-align: center; position:fixed;">
       <div id = "dirbuttons" class = "w3-container">
-      <img id="dir1" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir2" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir3" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir4" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir5" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir6" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir7" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir8" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
-      <img id="dir9" src = "img/OpenSquare.png" class="dirbutton w3-hover-teal w3-border">
+      <img id="dir1" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir2" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir3" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir4" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir5" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir6" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir7" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir8" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir9" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
     </div>
   </div>
   
-
-  <div id="footer" class= "w3-container w3-bottom w3-row w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px; overflow:hidden ">
+<!-- Add the footer bar at the bottom of the grid -->
+  <div id="footer" class= "w3-container w3-bottom w3-row w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px; opacity: 0.7; ">
       <div class="w3-col s2 w3-button w3-border w3-hover-teal" style = "background-color: #737188CC;"> 
           Equip
       </div> 
@@ -177,7 +196,10 @@
       </div> 
   </div>
   
- 
+  <!-- Tilesets -->
+  <img class = "tileset" id = "PotionTiles" src="img/potions.png"> 
+
+
 
 
   <!-- More boiler plate -->
@@ -189,16 +211,13 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.sound.min.js"></script> -->
 
-
-
-
-
-
-   <script src="js/cell.js"></script>
+  <script src="js/mapObject.js"></script>
+  <script src="js/cell.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/char.js"></script>
   <script src="js/vars.js"></script>
   <script src="js/main.js"></script>
+ 
 
  
 

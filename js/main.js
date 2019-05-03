@@ -6,7 +6,10 @@
 
 g.createMap();
 g.drawMap();
+g.addObjects(30);
 char.placePlayer();
+
+
 
 
 

@@ -1,8 +1,12 @@
 // set up variables and constants
 
-var mw = 40;  // maze width
-var mh = 40;  // maze height
+
+
+
+var mw = 20;  // maze width
+var mh = 20;  // maze height
 var cs = 32;  // size of a cell on the canvas
+var charsize = 16; // size of the character graphic
 var constDir = 0; // percentage chance of maintaining the same direction
 var joinPC = 1;
 var sideAvoidPC = 1;
@@ -14,7 +18,7 @@ var roomPC = .6;
 var cx = 24;
 var cy = 24;
 var moving = false;
-var keepMoving = true;
+var keepMoving = false;
 
 // var imChars = new Image;
 // var imChar = new Image;
@@ -33,6 +37,9 @@ canvas.width = cs*mw;
 canvas.height = cs*mh;
 var ctx = canvas.getContext("2d");
 
+var imPotions = new Image;
+imPotions.src = "img/potions.png"
+
 // make a maze image
 //var maze = document.createElement("img");
 var gridDIV = document.getElementById("grid");
@@ -43,25 +50,18 @@ gridDIV.appendChild(canvas);
 
 
 // direction events
-document.getElementById("dir1").addEventListener("mousedown",function(){char.moveDir1()});
-document.getElementById("dir2").addEventListener("mousedown",function(){char.moveDir2()});
-document.getElementById("dir3").addEventListener("mousedown",function(){char.moveDir3()});
-document.getElementById("dir4").addEventListener("mousedown",function(){char.moveDir4()});
-document.getElementById("dir5").addEventListener("mousedown",function(){char.moveDir5()});
-document.getElementById("dir6").addEventListener("mousedown",function(){char.moveDir6()});
-document.getElementById("dir7").addEventListener("mousedown",function(){char.moveDir7()});
-document.getElementById("dir8").addEventListener("mousedown",function(){char.moveDir8()});
-document.getElementById("dir9").addEventListener("mousedown",function(){char.moveDir9()});
+document.getElementById("dir1").addEventListener("mousedown",function(){keepMoving=true; char.moveDir1()});
+document.getElementById("dir2").addEventListener("mousedown",function(){keepMoving=true; char.moveDir2()});
+document.getElementById("dir3").addEventListener("mousedown",function(){keepMoving=true; char.moveDir3()});
+document.getElementById("dir4").addEventListener("mousedown",function(){keepMoving=true; char.moveDir4()});
+document.getElementById("dir5").addEventListener("mousedown",function(){keepMoving=true; char.moveDir5()});
+document.getElementById("dir6").addEventListener("mousedown",function(){keepMoving=true; char.moveDir6()});
+document.getElementById("dir7").addEventListener("mousedown",function(){keepMoving=true; char.moveDir7()});
+document.getElementById("dir8").addEventListener("mousedown",function(){keepMoving=true; char.moveDir8()});
+document.getElementById("dir9").addEventListener("mousedown",function(){keepMoving=true; char.moveDir9()});
 
-document.getElementById("dir1").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir2").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir3").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir4").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir5").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir6").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir7").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir8").addEventListener("mouseup",function(){keepMoving = false});
-document.getElementById("dir9").addEventListener("mouseup",function(){keepMoving = false});
+document.body.addEventListener("mouseup",function(){keepMoving = false});
+
 
 
 //colours
@@ -73,12 +73,27 @@ const colVeryDarkSolid = "#444444";
 const colOpenMed = "#9894A3"
 const colOpenLight = "#848387"
 const colOpenDark = "#5D5C60"
-const colOpenGrav = "#5D5C6011"
+const colOpenGrav = "#707070"
+
+const colButtonHighlight = "#008080"
 
 // game objects
 
+// Map Object Helpers
+
+// parameter pass for draw
+var drawObjs = new Array;
+
+// transfer canvas for get image data
+var transferCanvas = document.createElement("CANVAS");
+transferCanvas.width = cs;
+transferCanvas.height = cs;
+tctx = transferCanvas.getContext('2d');
+
+
 //console.log("construct grid");
 var g = new grid();
+var mos = new Array();
 
 //console.log("construct player");
 var char = new player();

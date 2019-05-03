@@ -1,5 +1,26 @@
 console.log("init char");
 
+var vucharHealth = new Vue({
+    el: '#Health',
+    data: {health: '50:50'}
+})
+
+var vucharMagic = new Vue({
+    el: '#Magic',
+    data: {magic: '50:50'} 
+})
+
+var vucharFatigue = new Vue({
+    el: '#Fatigue',
+    data: {fatigue: '50:50'} 
+})
+
+var vucharExperience = new Vue({
+    el: '#Experience',
+    data: {experience: '50:50'} 
+})
+
+
 class player {
 
 
@@ -18,8 +39,8 @@ class player {
         this._dy = 0;
     
         this._mHealth = 100;
-        this._mMagic = 100;
-        this._mFatigue = 100;
+        this._mMagic = 150;
+        this._mFatigue = 200;
         this._mExperience = 2000
     
         this._health = this._mHealth;
@@ -28,7 +49,8 @@ class player {
         this._experience = 0;
 
         this._created = false;
- 
+        
+        this.updatePlayerView()
     }
 
     drawPlayer()
@@ -37,6 +59,14 @@ class player {
 
         }
         
+    }
+
+    updatePlayerView()
+    {
+        vucharHealth.health = this._health + " / " + this._mHealth;
+        vucharMagic.magic = this._magic + " / " + this._mMagic;
+        vucharFatigue.fatigue = this._fatigue + " / " + this._mFatigue;
+        vucharExperience.experience = this._experience + " / " + this._mExperience;
     }
 
     placePlayer()
@@ -71,13 +101,17 @@ class player {
         let animTime = 200;
         this._dx = dx;
         this._dy = dy;
-        keepMoving=true;
    
         if(!moving && g.isOpen(this._x+dx,this._y+dy)){
-            moveGrid(this._x,this._y,this._x+dx,this._y+dy,animTime,8);
+            // do the animation
+            moveGrid(this._x,this._y,this._x+dx,this._y+dy,animTime,4);
             this._x+=dx;
             this._y+=dy;
             window.setTimeout(keepMovingCheck,animTime*1.5);
+
+            // iteract with the new square
+            this.interactWithLocal()
+
         }
         else
         {
@@ -89,8 +123,18 @@ class player {
    //     setCanvasOrigin(this._x,this._y);
     }
 
-
+    interactWithLocal(){
+        // if there is a potion in the square remove it
+        let item = g.getItem(this._x,this._y);
+        if (item === undefined){} else {
+            item.redrawObjBackground()
+            //g.removeItem(this._x,this._y);
+            //g.getCell(this._x,this._y).draw();
+        }
+    }
 }
+
+
 
 function keepMovingCheck(){
     if(keepMoving) char.repeatMove();
