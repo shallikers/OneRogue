@@ -71,6 +71,26 @@
     
   }
 
+  #highlight{
+    position: absolute; 
+    left:16em;
+    top: 1em;
+    padding:0px; 
+    width: 9.9em;
+    height: 9.75em; 
+   
+  }
+
+  #keydata{
+    position: absolute; 
+    top: 1em;
+    padding:0px; 
+    width: 15em; 
+    background-color: #737188; 
+    opacity: 0.7;">
+  
+  }
+
   @media only screen and (min-width: 600px){
     /* CSS overrides */
     body{
@@ -90,6 +110,8 @@
        width:50%;
     } 
   }
+
+  
  
     
   @media only screen and (min-width: 1366px){
@@ -125,14 +147,14 @@
   <div id="grid"> </div>
 
   <!-- Draw the player centralised in the frame the grid will move under them -->
-
   <img id="imPlayer" src = "img/imPlayer.png" class="w3-display-middle">
 
   
 
   <!-- Put the key data in the top left hand corner of the screen floating over the grid -->
-  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" style= "position: fixed; padding:0px; width: 15em; background-color: #737188; opacity: 0.7;">
-  
+
+  <div style = "position:fixed">
+  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" >
     <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding" >
         Decimaster
     </div>  
@@ -156,8 +178,14 @@
       </div>
     </div>
   </div>
+
+ <!-- Draw a highlight of the players square next to the control boxes --> 
+ <div id = "highlight" class = "w3-container w3-border" style = "background-color :#737188CC"> 
+   <canvas id = "hlc" width=128 height = 128 class= "w3-display-middle"style = "text-align: center;"></canvas>
+   <!--   <img id = "highlightImage" src = "img\Potions\row-1-col-1.png" style = "width:100%"> -->
+ </div>
   
- 
+</div>
 <!-- Draw the control boxes for the player -->
   <div  class = "w3-display-middle w3-text-white" 
         style = "text-align: center; position:fixed;">

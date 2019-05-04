@@ -397,24 +397,41 @@ window.addEventListener("resize", resizeCanvasOrigin);
 function resizeCanvasOrigin(){
     setCanvasOrigin(char._x,char._y);
 
-    console.log("inner,outer",window.innerWidth, window.outerWidth);
+    //console.log("inner,outer",window.innerWidth, window.outerWidth);
 }
 
+
 function setCanvasOrigin(x,y){
-  console.log(x,x*cs,window.innerWidth/2);
+    //console.log(x,x*cs,window.innerWidth/2);
 
-  // chrome version
-  let xo = -x * cs + window.innerWidth/2 - 0.5*cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
+    // chrome version
+    let xo = -x * cs + window.innerWidth/2 - 0.5*cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
 
-  // explorer version - scroll bar is driving the difference
-  //let xo = -x * cs + window.innerWidth/2 - cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
+    // explorer version - scroll bar is driving the difference
+    //let xo = -x * cs + window.innerWidth/2 - cs;  // cs/2 is so that the origin of the chacter is aligned to the cell
 
-  let yo = -y * cs + window.innerHeight/2 - 0.5*cs ;
+    let yo = -y * cs + window.innerHeight/2 - 0.5*cs ;
 
-  document.getElementById("grid").style.left = xo+"px";
-  document.getElementById("grid").style.top = yo+"px";
+    document.getElementById("grid").style.left = xo+"px";
+    document.getElementById("grid").style.top = yo+"px";
 
-  console.log(xo,yo);  
+
+
+   
+    tctx.putImageData(ctx.getImageData(x*cs,y*cs,cs,cs),0,0);
+    tim.src = tc.toDataURL();
+
+
+    
+    tim.onload = function(){drawscalledimage()}
+   
+
+    console.log(xo,yo);  
+}
+
+function drawscalledimage()
+{
+    hlctx.drawImage( tim , 0,0);
 }
 
 function moveGrid(x0,y0,x1,y1,time,steps){ //time in ms

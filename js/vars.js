@@ -42,13 +42,30 @@ canvas.width = cs*mw;
 canvas.height = cs*mh;
 var ctx = canvas.getContext("2d");
 
-var imPotions = new Image;
-imPotions.src = "img/potions.png"
+// create the highligh canvas
+var hlc = document.getElementById("hlc");
+var hlctx = hlc.getContext("2d");
+hlctx.scale(4,4);
+
+// creat the transfer canvas
+var tc = document.createElement("CANVAS");
+tc.width = cs;
+tc.height = cs;
+var tctx = tc.getContext("2d");
+
+//transfer image
+var tim = document.createElement("img");
+tim.id = "tim";
+tim.height = 32;
+tim.width = 32;
+
+
+
 
 // make a maze image
 //var maze = document.createElement("img");
 var gridDIV = document.getElementById("grid");
-gridDIV.appendChild(canvas);
+document.getElementById("grid").appendChild(canvas);
 
 // instrument element events
 
@@ -89,11 +106,6 @@ const colButtonHighlight = "#008080"
 // parameter pass for draw
 var drawObjs = new Array;
 
-// transfer canvas for get image data
-var transferCanvas = document.createElement("CANVAS");
-transferCanvas.width = cs;
-transferCanvas.height = cs;
-tctx = transferCanvas.getContext('2d');
 
 
 //console.log("construct grid");
