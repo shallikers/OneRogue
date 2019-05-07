@@ -113,11 +113,39 @@ class itemLibrary{
             "Paralysis:you feel very still:2",
             "Weakness:you feel weak:2");
 
+        this._scrollColours = new Array(
+            "Foobie Bletch:Scroll",
+            "Abracadabra:Scroll",
+            "Shazzam:Scroll",
+            "Boom:Scroll",
+            "Handle with care:Scroll",
+            "Life is wasted on the living:Scroll",
+            "Burn After Reading:Scroll",
+            "Zaaaap:Scroll",
+            "Powwww:Scroll",
+            "Kerching:Scroll"
+            )
+
+        this._scrollTypes = new Array(
+            "Identify:you identify the:15",
+            "Enchant Weapon:Your weapon glows:5",
+            "Destroy Weapon:Your weapon turns to dust:2",
+            "Enchant Armour:Your armour gloes blue:5",
+            "Remove Curse:You feel relieved:10",
+            "Doom:You are doomed:2",
+            "Butter fingers:You drop your weapons and tools:5",
+            "Curse:You feel distinctly uncomfortable:5"
+        )
+
         this._index = new Array();
         this.indexMin = 0;
         this._potionIndexMin = this._index.length;
         this.buildIndex(this._potionColours, this._potionTypes, "potion", this._potionIndexMin)
         this._potionIndexMax = this._index.length - 1;
+        this._scrollIndexMin = this._index.length;
+        this.buildIndex(this._scrollColours, this._scrollTypes, "scroll", this._scrollIndexMin)
+        this._scrollIndexMax = this._index.length - 1;
+     
         this._indexMax = this._index.length - 1;
 
         let x;
@@ -177,12 +205,12 @@ class itemLibrary{
         shuffleArray(colours);
         shuffleArray(effects);
         let x;
-        for(x=0;x<this._potionTypes.length;x++){
+        for(x=0;x<effects.length;x++){
             var p = {
                 index : 0,
                 itemType : itemType,
                 weighting : parseInt(effects[x % colours.length].split(":")[2],10),
-                identified : true,
+                identified : false,
                 count: 0,
                 name : effects[x].split(":")[0],
                 effect : effects[x].split(":")[1],

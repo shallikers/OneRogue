@@ -12,7 +12,8 @@ class cell {
         this._dir = ["n", "e", "s" , "w" ];
         this._imgSrc;
         this._isDrawn = false;
-        this._mapObject;
+        this._mapItem = null;
+
 
  
         shuffleArray(this._dir);

@@ -2,7 +2,6 @@ class grid  {
     
     constructor(){
         this._gridCells = new Array;
-    
         this._solidCell = new cell(-2,-2);
         this._openCell = new cell(-2,-2);
         this.newGrid();
@@ -42,12 +41,12 @@ class grid  {
 
     // puts an item in the cell
     setItem(x,y,o) { this.getCell(x,y)._mapItem = o;}
-    // removes an item in the cell
+    // gets an item in the cell
     getItem(x,y) { return this.getCell(x,y)._mapItem;}
     // removes an item in the cell
-    removeItem(x,y) { this.getCell(x,y)._mapItem = NaN; }
+    removeItem(x,y) { this.getCell(x,y)._mapItem = null; }
     // check if it has an item
-    hasItem(x,y) { if( (this.getCell(x,y)._mapItem == NaN) || (this.isSolid(x,y)) ) return true; else return false;}
+    hasItem(x,y) { if( (this.getCell(x,y)._mapItem != null) || (this.isSolid(x,y)) ) return true; else return false;}
     
 
     // stops a cell from being carvable

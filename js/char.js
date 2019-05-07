@@ -105,8 +105,7 @@ class player {
             this._x+=this._dx;
             this._y+=this._dy;
             
-            window.setTimeout(describe,animTime);
-
+            window.setTimeout(postMove,animTime);
             window.setTimeout(keepMovingCheck,animTime*1.5);
 
         }
@@ -121,14 +120,12 @@ class player {
     }
     postMove(){
         postAction();
-
     }
-
 
     describeLocal(){
         // if there is a potion in the square remove it
         let item = g.getItem(this._x,this._y);
-         if (item === undefined){
+         if (item == null){
             vuPickUp.text = "-"
          } else {
             let t= item.describe();
@@ -160,8 +157,11 @@ function describe(){
     char.describeLocal();
 }
 
-function keepMovingCheck(){
+function postMove(){
     char.postMove();
+}
+
+function keepMovingCheck(){
     if(keepMoving) char.repeatMove();
 }
 

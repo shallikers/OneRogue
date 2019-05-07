@@ -10,6 +10,7 @@ clearConsole();
 consoleLog("Welcome To One Rogue");
 consoleLog("Good look on your quest to find the amulet of lledyob in the heart of the Mahkcep mountains.");
 consoleLog("A far superior item to the amulet of Yendor!!");
+char.describeLocal();
 
 function preAction(){  
     busy = true;
@@ -27,6 +28,10 @@ function postAction(){
 
 
     //reset monster movement
+
+
+    // describe the location
+    char.describeLocal();
 
 }
 
