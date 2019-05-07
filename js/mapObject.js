@@ -1,10 +1,8 @@
 
 
 function drawMapObjectOnGrid(){
-
     let drawObj = drawObjs.pop();
     ctx.drawImage(drawObj._image,drawObj._xoff,drawObj._yoff); // draw the image
- 
 }
 
 class mapObject{
@@ -12,7 +10,7 @@ class mapObject{
     {
         this._mapObType = mapObType  // monster, item, fixed
         this._image = new Image();
-        this._image.src = "img/Potions/row-1-col-6.png";
+        this._image.src = "img/Items/redVial.png";
         this._backgroundImage;
         this._xoff = NaN;
         this._yoff = NaN;
@@ -56,108 +54,160 @@ class mapObject{
         ctx.putImageData(this._backgroundImage,this._xoff,this._yoff);
     }
 
+
+
 }
 
 class item extends mapObject {
     constructor(itemType){
         super("Item");
         this._itemType = itemType;
-        this._useText;
-        this._description;
+        this._index = -1;   
     }
+
+    describe(){
+        return il.describe(this._index);       
+    }
+
+    pickUp(){
+        il.pickup(this._index);
+        this.redrawObjBackground()
+        g.removeItem(this._x,this._y);
+        consoleLog("You pick the "+this.describe());
+    }
+
 }
 
-// load the potion tileset
 
-var potionTiles = document.getElementById("PotionTiles");
-console.log("potion tiles", potionTiles);
+class itemLibrary{
+    constructor(){
+        this._potionColours = new Array(
+            "red:redPot",
+            "yellow:yelPot",
+            "orange:orangePot",
+            "green:greenPot",
+            "light blue:lbluePot",
+            "dark blue:dbluePot",
+            "purple:purPot",
+            "pink:pinkPot",
+            "grey:greyPot",
+            "white:whitePot",
+            "red:redVial",
+            "yellow:yelVial",
+            "orange:orangeVial",
+            "green:greenPot",
+            "light blue:lblueVial",
+            "dark blue:dblueVial",
+            "purple:purVial",
+            "pink:pinkVial",
+            "grey:greyVial",
+            "white:whiteVial");
+        this._potionTypes = new Array(
+            "Healing:you feel better:10", 
+            "Extra Healing:you feel much better:5", 
+            "Energy:you feel full of energy:5", 
+            "Strength:you feel strong:3", 
+            "Dexterity:you feel nimble:3",
+            "Experience:you feel wise:2",
+            "Poison:you feel very sick:2",
+            "Paralysis:you feel very still:2",
+            "Weakness:you feel weak:2");
 
+        this._index = new Array();
+        this.indexMin = 0;
+        this._potionIndexMin = this._index.length;
+        this.buildIndex(this._potionColours, this._potionTypes, "potion", this._potionIndexMin)
+        this._potionIndexMax = this._index.length - 1;
+        this._indexMax = this._index.length - 1;
 
-//var imagePotionTiles = document.getElementById("PotionTiles");;
-//imageObjPotion.src = "img/potions.png";
-// var canvasPotion = document.createElement("CANVAS");
-// canvasPotion.style.visibility = "hidden";
-// canvasPotion.width = 32 * 10;
-// canvasPotion.height = 32 * 4
-// var ctxPotion = canvasPotion.getContext("2d");
-// ctxPotion.drawImage(imagePotionTiles,0,0);
+        let x;
 
-
-class potion extends item {
-    constructor(potionType){
-        super("Potion");
-        switch (potionType) {
-            case "Healing" :
-                this._description = "red"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-1.png"
-                break;
-            case "Extra Healing" :
-                this._description = "crimson"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-2.png"
-                break;
-            case "Magic" :
-                this._description = "red"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-3.png"
-                break;
-            case "Energy" :
-                this._description = "crimson"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-4.png"
-                break;
-            case "Poison" :
-                this._description = "red"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-5.png"
-                break;
-            case "Paralysis" :
-                this._description = "crimson"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-6.png"
-                break;
-            case "Weakness" :
-                this._description = "red"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-7.png"
-                break;
-            case "Experience" :
-                this._description = "crimson"
-                this._useText = "you feel better";
-                this._image.src = "img/Potions/row-1-col-8.png"
-            break;             default:
-                this._description = "error: this potion is unknown"
-                _useText = "error: the effect of this potion is unknown"
-                break;
-        }
-    }
-    use(){       
-        // put the message in the console.  = you drink the ... description ... potion
-        switch (potionType) {
-            case "Healing" :
-                char._health += Math.floor(char._mHealth/3);
-                if(char._health > char._mHealth){_mHealth += 2; char._health = char._mHealth }
-                break;
-            case "Extra Healing" :
-                char._health += Math.floor(2*char._mHealth/3);
-                if(char._health > char._mHealth){_mHealth += 2; char._health = char._mHealth }
-                break;
-
-            default:
-                // do nothing
-                break;
+        this.totalWeighting = 0;
+        for(x in this._index){
+            this.totalWeighting += this._index[x].weighting;
         }
         
-        cell._imgSrc = ctx.getImageData(0,0,cs,cs);
 
 
-    }
-}
-
-class potionLibrary{
-    constructor(){
 
     }
+
+    makeItem(){
+        let r = this._index[getRandom(0,this._indexMax)];
+        let p = new item();
+        p = this.populateItem(r,p);    
+        return p;
+    }
+
+    makePotion(){
+        let r = this._index[getRandom(this._potionIndexMin,this._potionIndexMax)];
+        let p = new item();
+        p = this.populateItem(r,p);  
+        return p;
+    }
+
+    populateItem(r,p){
+        p._image.src = r.imageSrc;
+        p._itemType =  r.itemType;
+        p._index = r.index;
+        return p;
+    }
+
+    describe(i){
+        let item = this._index[i];
+        let desc;
+        if (item.identified) {desc = item.itemType + " of " + item.name;}
+        else{desc = item.colour+" "+item.itemType}
+        return desc;
+    }
+
+    pickup(i){
+        let item = this._index[i];
+        item.count++;
+    }
+
+
+
+
+
+    
+    buildIndex(colours, effects, itemType, i){
+        // console.log(colours);
+        // console.log(effects);
+        shuffleArray(colours);
+        shuffleArray(effects);
+        let x;
+        for(x=0;x<this._potionTypes.length;x++){
+            var p = {
+                index : 0,
+                itemType : itemType,
+                weighting : parseInt(effects[x % colours.length].split(":")[2],10),
+                identified : true,
+                count: 0,
+                name : effects[x].split(":")[0],
+                effect : effects[x].split(":")[1],
+                colour : colours[x % colours.length].split(":")[0],
+                imageSrc : itemsPath + colours[x % colours.length].split(":")[1]+".png"
+            }
+            p.index = x+i;
+            this._index[x+i] = p;
+        } 
+            
+            // p[1] = itemType;
+            // p[2] = 0; // how many of the item the player is carrying;
+            // p[2] = false // has the player identified the item
+            // p[3] = effects[x].split(":")[0]; // the name of the potion
+            // p[4] = effects[x].split(":")[1]; // the type of the potion
+            // let i = x % colours.length; 
+            // p[5] = colours[x].split(":")[0]; // the colour of the potion
+            // p[6] = itemsPath + colours[x].split(":")[1]+".png"; // the url of the item
+            // p[7] = weighting // how rare the poition is smaller numbers are more rare
+        
+        console.log("index",this._index); 
+    }
+
+
+
+
 
 }

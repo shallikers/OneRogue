@@ -1,8 +1,5 @@
 // set up variables and constants
 
-
-
-
 var mw = 40;  // maze width
 var mh = 40;  // maze height
 var cs = 32;  // size of a cell on the canvas
@@ -25,24 +22,13 @@ var keepMoving = false;
 
 var animTime = 200;
 
-// var imChars = new Image;
-// var imChar = new Image;
-// imChars.src =  "img/Player1.png"
-// imChars.addEventListener('load', function() {
-//     // execute drawImage statements here
-//     imChar = getImagePortion(imChars, 16,16,80,0,1);
-//   }, false);
-
-
-
-
 // create the game canvas
 var canvas = document.createElement("CANVAS");
 canvas.width = cs*mw;
 canvas.height = cs*mh;
 var ctx = canvas.getContext("2d");
 
-// create the highligh canvas
+// create the highlight canvas
 var hlc = document.getElementById("hlc");
 var hlctx = hlc.getContext("2d");
 hlctx.scale(4,4);
@@ -59,13 +45,14 @@ tim.id = "tim";
 tim.height = 32;
 tim.width = 32;
 
-
-
-
 // make a maze image
 //var maze = document.createElement("img");
 var gridDIV = document.getElementById("grid");
 document.getElementById("grid").appendChild(canvas);
+
+//file paths
+itemsPath = "img/items/";
+
 
 // instrument element events
 
@@ -76,7 +63,7 @@ document.getElementById("dir1").addEventListener("mousedown",function(){keepMovi
 document.getElementById("dir2").addEventListener("mousedown",function(){keepMoving=true; char.moveDir2()});
 document.getElementById("dir3").addEventListener("mousedown",function(){keepMoving=true; char.moveDir3()});
 document.getElementById("dir4").addEventListener("mousedown",function(){keepMoving=true; char.moveDir4()});
-document.getElementById("dir5").addEventListener("mousedown",function(){keepMoving=true; char.moveDir5()});
+//document.getElementById("dir5").addEventListener("mousedown",function(){keepMoving=true; char.moveDir5()});
 document.getElementById("dir6").addEventListener("mousedown",function(){keepMoving=true; char.moveDir6()});
 document.getElementById("dir7").addEventListener("mousedown",function(){keepMoving=true; char.moveDir7()});
 document.getElementById("dir8").addEventListener("mousedown",function(){keepMoving=true; char.moveDir8()});
@@ -110,7 +97,11 @@ var drawObjs = new Array;
 
 //console.log("construct grid");
 var g = new grid();
-var mos = new Array();
+
+//construct the item library
+var il = new itemLibrary();
+
+//var mos = new Array();
 
 //console.log("construct player");
 var char = new player();
@@ -144,7 +135,12 @@ function shuffleArray(arra1) {
     return arra1;
 }
 
-
+function anCheck(text){
+    switch (text[0]) {
+        case 'a','e','i','o','u' : return 'n ';
+        default: return ' ';
+    }
+}
 
 
 function getImagePortion(imgObj, newWidth, newHeight, startX, startY, ratio){
