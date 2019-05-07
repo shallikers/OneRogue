@@ -20,15 +20,7 @@ var vucharExperience = new Vue({
     data: {experience: '50:50'} 
 })
 
-
 class player {
-
-
-    //_sourceImage = new Image;
-    //_renderImage = new Image;
-
-    
-
     constructor(){
         console.log("construct char");    
     
@@ -82,76 +74,94 @@ class player {
         //console.log(this._x, this._y, g.isOpen(this._x,this._y));
         setCanvasOrigin(this._x, this._y);
     }
-
-    moveDir1(){this.move(-1,-1);}
-    moveDir2(){this.move(0,-1);}
-    moveDir3(){this.move(1,-1);}
-    moveDir4(){this.move(-1,0);}
-    moveDir5(){this.move(0,0);}
-    moveDir6(){this.move(1,0);}
-    moveDir7(){this.move(-1,1);}
-    moveDir8(){this.move(0,1);}
-    moveDir9(){this.move(1,1);}
+    moveDir1(){this.premove(-1,-1);}
+    moveDir2(){this.premove(0,-1);}
+    moveDir3(){this.premove(1,-1);}
+    moveDir4(){this.premove(-1,0);}
+    moveDir5(){this.premove(0,0);}
+    moveDir6(){this.premove(1,0);}
+    moveDir7(){this.premove(-1,1);}
+    moveDir8(){this.premove(0,1);}
+    moveDir9(){this.premove(1,1);}
 
     repeatMove(){
-        this.move(this._dx,this._dy);
+        this.premove(this._dx,this._dy);
     }
 
-    move(dx,dy){
+    premove(dx,dy){
+        // call game loop pre actions
+        preAction()
 
         this._dx = dx;
         this._dy = dy;
+        this.move();
+    }
+
+    move(){
    
-        if(!moving && g.isOpen(this._x+dx,this._y+dy)){
+        if(!moving && g.isOpen(this._x+this._dx,this._y+this._dy)){
             // do the animation
-            moveGrid(this._x,this._y,this._x+dx,this._y+dy,animTime,4);
-            this._x+=dx;
-            this._y+=dy;
+            moveGrid(this._x,this._y,this._x+this._dx,this._y+this._dy,animTime,4);
+            this._x+=this._dx;
+            this._y+=this._dy;
             
-            window.setTimeout(interact,animTime);
+            window.setTimeout(describe,animTime);
 
             window.setTimeout(keepMovingCheck,animTime*1.5);
 
-            // iteract with the new square
-            //this.interactWithLocal()
         }
         else
         {                   
             keepMoving = false;
             if(!moving){
-                moveGrid(this._x,this._y,this._x+dx/4,this._y+dy/4,animTime/2,2);
+                moveGrid(this._x,this._y,this._x+this._dx/4,this._y+this._dy/4,animTime/2,2);
                 window.setTimeout(bounceBack,animTime*0.8);
             }
         }
+    }
+    postMove(){
+        postAction();
 
-
-   
-   //     setCanvasOrigin(this._x,this._y);
     }
 
 
-    interactWithLocal(){
+    describeLocal(){
         // if there is a potion in the square remove it
         let item = g.getItem(this._x,this._y);
+         if (item === undefined){
+            vuPickUp.text = "-"
+         } else {
+            let t= item.describe();
+            consoleLog("You see a" + anCheck(t) + t);
+            vuPickUp.text = "Pick Up"
+       }
+    }
+
+    interactWithLocal(){
+
+        preAction();
+
+        let item = g.getItem(this._x,this._y);
         if (item === undefined){} else {
-            item.redrawObjBackground()
-            //g.removeItem(this._x,this._y);
-            //g.getCell(this._x,this._y).draw();
-        }
+            item.pickUp();
+        }        
+        setCanvasOrigin(this._x,this._y);
+
+        postAction();
     }
 
     bounceBack(){
-//        setCanvasOrigin(this._x,this._y)
-            moveGrid(this._x+this._dx/4,this._y+this._dy/4,this._x,this._y,animTime/2,2);
+        moveGrid(this._x+this._dx/4,this._y+this._dy/4,this._x,this._y,animTime/2,2);
+        consoleLog("You bump into a wall");
 
     }
 }
-function interact(){
-    char.interactWithLocal();
+function describe(){
+    char.describeLocal();
 }
 
-
 function keepMovingCheck(){
+    char.postMove();
     if(keepMoving) char.repeatMove();
 }
 

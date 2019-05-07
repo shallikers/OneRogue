@@ -1,9 +1,5 @@
 class grid  {
-    // _gridCells = new Array;
     
-    // _solidCell = new cell(-2,-2);
-    // _openCell = new cell(-2,-2);
-   
     constructor(){
         this._gridCells = new Array;
     
@@ -61,20 +57,9 @@ class grid  {
     addObjects(n){
         for(let i=0; i<n; i++)
         {
-            let o;
-            let x = getRandom(1,8);
-            switch (x) {
-                case 1: o = new potion("Healing"); break;
-                case 2: o = new potion("Extra Healing"); break;
-                case 3: o = new potion("Magic"); break;
-                case 4: o = new potion("Energy"); break;
-                case 5: o = new potion("Poison"); break;
-                case 6: o = new potion("Paralysis"); break;
-                case 7: o = new potion("Weakness"); break;
-                case 8: o = new potion("Experience"); break;
-            }
-            
-            o.placeObject(); 
+            let i = il.makeItem()
+            //console.log(i);
+            i.placeObject(); 
         }
     }
 
@@ -120,8 +105,8 @@ class grid  {
 
     drawMap() {
 
-        for (var i = 0; i < mw; i++) {
-            for (var j = 0; j < mh; j++) {
+        for (var i = 0; i < mw-1; i++) {
+            for (var j = 0; j < mh-1; j++) {
                 this.drawCellImage(i,j);
                 this.getCell(i,j).draw();
             }
@@ -420,13 +405,11 @@ function setCanvasOrigin(x,y){
    
     tctx.putImageData(ctx.getImageData(x*cs,y*cs,cs,cs),0,0);
     tim.src = tc.toDataURL();
-
-
-    
+   
     tim.onload = function(){drawscalledimage()}
    
 
-    console.log(xo,yo);  
+    //console.log(xo,yo);  
 }
 
 function drawscalledimage()

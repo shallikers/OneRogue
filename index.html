@@ -87,7 +87,7 @@
     padding:0px; 
     width: 15em; 
     background-color: #737188; 
-    opacity: 0.7;">
+    opacity: 0.7;
   
   }
 
@@ -147,7 +147,7 @@
   <div id="grid"> </div>
 
   <!-- Draw the player centralised in the frame the grid will move under them -->
-  <img id="imPlayer" src = "img/imPlayer.png" class="w3-display-middle">
+  <img id="imPlayer" v-on:click="char.interactWithLocal()" src = "img/imPlayer.png" class="w3-display-middle">
 
   
 
@@ -180,7 +180,7 @@
   </div>
 
  <!-- Draw a highlight of the players square next to the control boxes --> 
- <div id = "highlight" class = "w3-container w3-border" style = "background-color :#737188CC"> 
+ <div id = "highlight" v-on:click="char.interactWithLocal()" class = "w3-container w3-border" style = "background-color :#737188CC"> 
    <canvas id = "hlc" width=128 height = 128 class= "w3-display-middle"style = "text-align: center;"></canvas>
    <!--   <img id = "highlightImage" src = "img\Potions\row-1-col-1.png" style = "width:100%"> -->
  </div>
@@ -194,7 +194,7 @@
       <img id="dir2" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
       <img id="dir3" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
       <img id="dir4" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir5" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+      <img id="dir5" v-on:click="char.interactWithLocal()" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
       <img id="dir6" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
       <img id="dir7" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
       <img id="dir8" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
@@ -203,33 +203,32 @@
   </div>
   
 <!-- Add the footer bar at the bottom of the grid -->
-  <div id="footer" class= "w3-container w3-bottom w3-row w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px; opacity: 0.7; ">
-      <div class="w3-col s2 w3-button w3-border w3-hover-teal" style = "background-color: #737188CC;"> 
-          Equip
-      </div> 
-      <div class="w3-col s2 w3-btn w3-border w3-center w3-hover-teal"> 
-         Move
-      </div> 
-      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
-          Use
-      </div> 
-      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
-          Fire
-      </div> 
-      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
-          Cast
-      </div> 
-      <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
-          Camp
-      </div> 
+  <div id="footer" class= " w3-bottom  w3-border w3-text-white" style = "background-color: #737188CC; padding: 0px; opacity: 0.7; ">
+      <div id="ConsoleText" v-on:click="clearConsole()" class="w3-border" style = "background-color:#737188CC; padding: 10px,0px; margin: 0px; line-height:100%"> 
+         <pre style="padding: 0 1rem; white-space: pre-wrap;">{{consoletext}}</pre>
+      </div>     
+    
+    <div id="pickup" v-on:click="char.interactWithLocal()" class="w3-col s2 w3-button w3-border w3-hover-teal" style = "background-color: #737188CC;"> 
+        {{ text }}
+    </div> 
+    <div class="w3-col s2 w3-btn w3-border w3-center w3-hover-teal"> 
+        Use
+    </div> 
+    <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+        Equip
+    </div> 
+    <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+        Fire
+    </div> 
+    <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+        Zap
+    </div> 
+    <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
+        Game
+    </div> 
   </div>
   
-  <!-- Tilesets -->
-  <img class = "tileset" id = "PotionTiles" src="img/potions.png"> 
-
-
-
-
+  
   <!-- More boiler plate -->
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -238,7 +237,7 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.sound.min.js"></script> -->
-
+  <script src="js/gamescreen.js"></script>
   <script src="js/mapObject.js"></script>
   <script src="js/cell.js"></script>
   <script src="js/grid.js"></script>
