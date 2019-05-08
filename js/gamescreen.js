@@ -12,6 +12,11 @@ var vuPickUp = new Vue({
     data: {text: 'Pick Up'}   
 })
 
+var vuUse = new Vue({
+    el: '#use',
+    data: {text: 'Use'}   
+})
+
 var vudir5 = new Vue({
     el: '#dir5', 
 })
@@ -23,6 +28,8 @@ var vudir5 = new Vue({
 var vudir5 = new Vue({
     el: '#highlight', 
 })
+
+
 
 var cText = "> ";
 
@@ -38,4 +45,27 @@ function consoleLog(text){
     keepMoving = false;   
 
 }
+
+function pickUpButton(){
+    if(g.getItem(char._x,char._y) == null){
+        char._autoPickup = !char._autoPickup
+        char.describeLocal();
+    }
+    else char.interactWithLocal();
+}
+
+var useToggle = true;
+useButton()
+function useButton(){
+    let el = document.getElementById("useDIV")
+    useToggle = !useToggle;
+    if(useToggle){
+        el.hidden = false;
+    } else {
+        el.hidden = true;
+    }
+
+    
+}
+
 

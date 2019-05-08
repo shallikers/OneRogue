@@ -101,6 +101,20 @@ var g = new grid();
 //construct the item library
 var il = new itemLibrary();
 
+Vue.component('invItem', {
+    //template: '<img v-bind:src="item.imageSrc" style="height: 1.5rem; padding: 0px"> {{item.count}} {{item.name}} {{item.itemType}}',
+    props: {
+        item: Object
+    }
+})
+
+var vuUse = new Vue({
+    el: '#useDIV',
+    methods: {
+        update: function(){ this.$forceUpdate();}
+    }
+})
+
 //var mos = new Array();
 
 //console.log("construct player");

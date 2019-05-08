@@ -29,16 +29,14 @@
     z-index: -2;
   }
 
-  .tileset {
-    z-index: -3;
-    display: none;
-  }
+  
   
   .dirbutton {
     width: 33%;
     opacity: 0.3;
     padding: 0px 0px;
     border: 10px;
+    z-index:3;
   
 
   }
@@ -116,12 +114,12 @@
     
   @media only screen and (min-width: 1366px){
   /* CSS overrides */
-    body{
+    body2{
         width : 1366px;
         margin: 0 auto;
     }
-    #footer{
-      width:1366px;
+    #footer2{
+      width:1300px;
     }
     #dirbuttons{
        width:40%;
@@ -149,11 +147,9 @@
   <!-- Draw the player centralised in the frame the grid will move under them -->
   <img id="imPlayer" v-on:click="char.interactWithLocal()" src = "img/imPlayer.png" class="w3-display-middle">
 
-  
-
   <!-- Put the key data in the top left hand corner of the screen floating over the grid -->
 
-  <div style = "position:fixed">
+  <div style = "position:fixed; margin: 0 1em 0 1em">
   <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" >
     <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding" >
         Decimaster
@@ -202,17 +198,48 @@
     </div>
   </div>
   
+<!-- inventory screen -->
+
+<div id="useDIV" style= "float:right; z-index: 4;"> &nbsp
+<div  class = "w3-text-white w3-border"
+    style = " background-color :#737188;  right: 0px; padding-right: 1em; margin: 0px 1em 2em 0px;  min-height: 10em">
+    <div  class = "w3-container w3-text-white" style = "padding-right: 1em; padding-top: 0.5em" >
+      <strong>Potions And Scrolls</strong>
+    </div> 
+                     
+  <ul style="padding: 0 0 0 1em">
+    <invItem style="padding: 0px; width: 100%" class = "w3-container w3-hover-teal "
+      v-for ="item in il._index"
+      v-if="item.count>0"
+      v-on:click = "il.useItem(item.index)" >
+      <img v-bind:src="item.imageSrc" style="height: 1.5rem; padding: 0px"> 
+      {{item.count}} {{item.description}} 
+    </invItem>   
+  </ul> 
+
+  
+
+  </div>
+</div>
+
+
 <!-- Add the footer bar at the bottom of the grid -->
-  <div id="footer" class= " w3-bottom  w3-text-white" style = "background-color: #737188CC; padding: 0px 0px 2em 0px; opacity: 0.7; ">
-      <div id="ConsoleText" v-on:click="clearConsole()" class="w3-border" style = "background-color:#737188CC; padding: 10px,0px; margin: 0px; line-height:100%"> 
-         <pre style="padding: 0 1rem; white-space: pre-wrap;">{{consoletext}}</pre>
+<div style ="background-color: red" >
+  <div id="footer" class= " w3-display-bottommiddle  w3-text-white" 
+                   style= " width: 100%; padding: 1em; background-color: #737188CC;  opacity: 0.7; ">
+      
+      
+      <div id="ConsoleText" v-on:click="clearConsole()" 
+        class="w3-border"
+        style ="background-color:#737188CC; padding: 0em 0px; margin: 0px; line-height:100%" > 
+        <pre style="padding: 0 1rem; white-space: pre-wrap;">{{consoletext}}</pre>
       </div>     
     
-    <div id="pickup" v-on:click="char.interactWithLocal()" class="w3-col s2 w3-button w3-border w3-hover-teal" style = "background-color: #737188CC;"> 
+    <div id="pickup" v-on:click="pickUpButton()" class="w3-col s2 w3-button w3-border w3-hover-teal"> 
         {{ text }}
     </div> 
-    <div class="w3-col s2 w3-btn w3-border w3-center w3-hover-teal"> 
-        Use
+    <div id="use" v-on:click="useButton()" class="w3-col s2 w3-btn w3-border w3-center w3-hover-teal">        
+        {{ text }}
     </div> 
     <div class="w3-col s2 w3-btn w3-border w3-hover-teal"> 
         Equip
@@ -227,7 +254,7 @@
         Game
     </div> 
   </div>
-  
+</div>  
   
   <!-- More boiler plate -->
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>

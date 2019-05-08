@@ -76,6 +76,18 @@ class item extends mapObject {
         consoleLog("You pick the "+this.describe());
     }
 
+    isUseItem(){
+        if(il[this._index].getCount()>0) return true; else return false;
+    }
+
+    use(){
+        console.log("used");
+    }
+
+}
+
+function use(itemIndex){
+    il._index
 }
 
 
@@ -155,9 +167,11 @@ class itemLibrary{
             this.totalWeighting += this._index[x].weighting;
         }
         
+        
+    }
 
-
-
+    getCount(item){
+        return this._index[item._index].count;
     }
 
     makeItem(){
@@ -184,14 +198,33 @@ class itemLibrary{
     describe(i){
         let item = this._index[i];
         let desc;
-        if (item.identified) {desc = item.itemType + " of " + item.name;}
-        else{desc = item.colour+" "+item.itemType}
+        if (item.identified) {desc = item.itemType + " of " + item.name+" ";}
+        else{desc = item.colour+" "+item.itemType+" "}
+        this._index[i].description = desc+" ";
         return desc;
     }
 
     pickup(i){
         let item = this._index[i];
         item.count++;
+        vuUse.update();
+    }
+
+    useItem(index){
+        let item = this._index[index];
+        let message = "";
+        switch (item.itemType) {
+            case "potion" : message = "You drink the "; break;
+            case "scroll" : message = "You read the "; break;
+        }
+
+        consoleLog(message + this._index[index].description);     
+        this._index[index].identified = true;
+        this.describe(index);
+        this._index[index].count--;
+        vuUse.update();
+        consoleLog("It appears to be a " + item.itemType+ " of " + item.description);
+        
     }
 
 
@@ -215,21 +248,15 @@ class itemLibrary{
                 name : effects[x].split(":")[0],
                 effect : effects[x].split(":")[1],
                 colour : colours[x % colours.length].split(":")[0],
-                imageSrc : itemsPath + colours[x % colours.length].split(":")[1]+".png"
+                imageSrc : itemsPath + colours[x % colours.length].split(":")[1]+".png",
+                description : "placeholder"
             }
             p.index = x+i;
             this._index[x+i] = p;
+            this.describe(x+i);
+
+            if (p.index<10) p.count = 1;
         } 
-            
-            // p[1] = itemType;
-            // p[2] = 0; // how many of the item the player is carrying;
-            // p[2] = false // has the player identified the item
-            // p[3] = effects[x].split(":")[0]; // the name of the potion
-            // p[4] = effects[x].split(":")[1]; // the type of the potion
-            // let i = x % colours.length; 
-            // p[5] = colours[x].split(":")[0]; // the colour of the potion
-            // p[6] = itemsPath + colours[x].split(":")[1]+".png"; // the url of the item
-            // p[7] = weighting // how rare the poition is smaller numbers are more rare
         
         console.log("index",this._index); 
     }

@@ -41,6 +41,10 @@ class player {
         this._experience = 0;
 
         this._created = false;
+
+
+        // boolean character behaviour toggles
+        this._autoPickup = false;
         
         this.updatePlayerView()
     }
@@ -126,11 +130,21 @@ class player {
         // if there is a potion in the square remove it
         let item = g.getItem(this._x,this._y);
          if (item == null){
-            vuPickUp.text = "-"
+             if (this._autoPickup){
+                vuPickUp.text = "autoPick: On"
+             } else {
+                vuPickUp.text = "autoPick: Off"
+            }
+            
          } else {
             let t= item.describe();
             consoleLog("You see a" + anCheck(t) + t);
-            vuPickUp.text = "Pick Up"
+            if (this._autoPickup){
+                item.pickUp();
+            }
+            else{
+                vuPickUp.text = "Pick Up"
+            }
        }
     }
 
@@ -139,7 +153,7 @@ class player {
         preAction();
 
         let item = g.getItem(this._x,this._y);
-        if (item === undefined){} else {
+        if (item == null){} else {
             item.pickUp();
         }        
         setCanvasOrigin(this._x,this._y);
@@ -168,3 +182,4 @@ function keepMovingCheck(){
 function bounceBack(){
     char.bounceBack();
 }
+
