@@ -29,8 +29,6 @@ var vudir5 = new Vue({
     el: '#highlight', 
 })
 
-
-
 var cText = "> ";
 
 function clearConsole(){
@@ -56,13 +54,17 @@ function pickUpButton(){
 
 var useToggle = true;
 useButton()
+
 function useButton(){
-    let el = document.getElementById("useDIV")
+    let el = document.getElementById("useDIV");    
+    let el2 = document.getElementById("highlight");
     useToggle = !useToggle;
     if(useToggle){
         el.hidden = false;
+        el2.hidden = true;
     } else {
         el.hidden = true;
+        el2.hidden = false;
     }
 
     

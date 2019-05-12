@@ -33,7 +33,7 @@ var hlc = document.getElementById("hlc");
 var hlctx = hlc.getContext("2d");
 hlctx.scale(4,4);
 
-// creat the transfer canvas
+// create the transfer canvas
 var tc = document.createElement("CANVAS");
 tc.width = cs;
 tc.height = cs;
@@ -52,7 +52,6 @@ document.getElementById("grid").appendChild(canvas);
 
 //file paths
 itemsPath = "img/items/";
-
 
 // instrument element events
 
@@ -102,7 +101,6 @@ var g = new grid();
 var il = new itemLibrary();
 
 Vue.component('invItem', {
-    //template: '<img v-bind:src="item.imageSrc" style="height: 1.5rem; padding: 0px"> {{item.count}} {{item.name}} {{item.itemType}}',
     props: {
         item: Object
     }

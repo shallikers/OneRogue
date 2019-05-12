@@ -70,9 +70,7 @@
   }
 
   #highlight{
-    position: absolute; 
-    left:16em;
-    top: 1em;
+    position: fixed;
     padding:0px; 
     width: 9.9em;
     height: 9.75em; 
@@ -80,10 +78,11 @@
   }
 
   #keydata{
-    position: absolute; 
+    z-index: 4;
+    float : left; 
     top: 1em;
     padding:0px; 
-    width: 15em; 
+    width: 16em;
     background-color: #737188; 
     opacity: 0.7;
   
@@ -149,92 +148,89 @@
 
   <!-- Put the key data in the top left hand corner of the screen floating over the grid -->
 
-  <div style = "position:fixed; margin: 0 1em 0 1em">
-  <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" >
-    <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding" >
-        Decimaster
-    </div>  
-  
-    <div id= "keyData"  class = "w3-container w3-text-white w3-border w3-padding" >
-    <div class="w3-row ">
+  <div id = "charData" style = "float: left; margin: 1em 1em 0 1em">
+    <div id= "keydata" class = "w3-container w3-text-white w3-btn w3-hover-teal w3-left-align" >
+      <div id= "charname"  class = "w3-container w3-text-white w3-border w3-padding" >
+          {{ name }}
+      </div>  
+      <div id= "keyData"  class = "w3-container w3-text-white w3-border w3-padding" >
         <div class="w3-col s6 w3-left">Health</div>
         <div id="Health" class="w3-col s6  w3-center">{{ health }}</div>
-      </div>
-      <div class="w3-row ">
-        <div class="w3-col s6  w3-left">Magic</div>
-        <div id="Magic" class="w3-col s6  w3-center">{{ magic }}</div>
-      </div>
-      <div class="w3-row ">
         <div class="w3-col s6 w3-left">Fatigue</div>
         <div id="Fatigue" class="w3-col s6  w3-center">{{ fatigue }}</div>
-      </div>
-      <div class="w3-row ">
+        <div class="w3-col s6  w3-left">Magic</div>
+        <div id="Magic" class="w3-col s6  w3-center">{{ magic }}</div>
         <div class="w3-col s6  w3-left">Experience</div>
-        <div id="Experience" class="w3-col s6  w3-center">{{ experience }}</div>
+        <div id="Experience" class="w3-col s6  w3-center">{{ experience }}</div>   
       </div>
     </div>
   </div>
+  
 
  <!-- Draw a highlight of the players square next to the control boxes --> 
+
+ <div style = "float: left; margin: 1em 1em 0 0em">
  <div id = "highlight" v-on:click="char.interactWithLocal()" class = "w3-container w3-border" style = "background-color :#737188CC"> 
    <canvas id = "hlc" width=128 height = 128 class= "w3-display-middle"style = "text-align: center;"></canvas>
    <!--   <img id = "highlightImage" src = "img\Potions\row-1-col-1.png" style = "width:100%"> -->
  </div>
-  
 </div>
-<!-- Draw the control boxes for the player -->
-  <div  class = "w3-display-middle w3-text-white" 
-        style = "text-align: center; position:fixed;">
-      <div id = "dirbuttons" class = "w3-container">
-      <img id="dir1" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir2" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir3" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir4" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir5" v-on:click="char.interactWithLocal()" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir6" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir7" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir8" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-      <img id="dir9" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+   
+<!-- inventory screen -->
+
+<div id="useDIV" style= "float:right; margin: 1em 1em 0 1em; z-index: 5;"> 
+  <div  class = "w3-text-white w3-border"
+      style = " background-color :#737188; min-height: 10em">
+      <div  class = "w3-container w3-text-white" style = "padding-right: 1em; padding-top: 0.5em" >
+        <strong>Potions And Scrolls</strong>
+      </div> 
+                       
+    <ul style="padding: 0 0 0 1em">
+      <invItem style="padding: 0 0 0 0em; width: 100%" class = "w3-container w3-hover-teal "
+        v-for ="item in il._index"
+        v-if="item.count>0"
+        v-on:click = "il.useItem(item.index)" >
+        <img v-bind:src="item.imageSrc" style="height: 1.5rem; padding: 0px"> 
+        {{item.count}} {{item.description}} 
+      </invItem>   
+    </ul> 
+  
+    
+  
     </div>
   </div>
   
-<!-- inventory screen -->
+</div>
 
-<div id="useDIV" style= "float:right; z-index: 4;"> &nbsp
-<div  class = "w3-text-white w3-border"
-    style = " background-color :#737188;  right: 0px; padding-right: 1em; margin: 0px 1em 2em 0px;  min-height: 10em">
-    <div  class = "w3-container w3-text-white" style = "padding-right: 1em; padding-top: 0.5em" >
-      <strong>Potions And Scrolls</strong>
-    </div> 
-                     
-  <ul style="padding: 0 0 0 1em">
-    <invItem style="padding: 0px; width: 100%" class = "w3-container w3-hover-teal "
-      v-for ="item in il._index"
-      v-if="item.count>0"
-      v-on:click = "il.useItem(item.index)" >
-      <img v-bind:src="item.imageSrc" style="height: 1.5rem; padding: 0px"> 
-      {{item.count}} {{item.description}} 
-    </invItem>   
-  </ul> 
-
-  
-
+<!-- Draw the control boxes for the player -->
+<div  class = "w3-display-middle w3-text-white" 
+      style = "text-align: center; position:fixed;">
+    <div id = "dirbuttons" class = "w3-container">
+    <img id="dir1" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir2" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir3" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir4" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir5" v-on:click="char.interactWithLocal()" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir6" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir7" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir8" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    <img id="dir9" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
   </div>
 </div>
+
 
 
 <!-- Add the footer bar at the bottom of the grid -->
 <div style ="background-color: red" >
   <div id="footer" class= " w3-display-bottommiddle  w3-text-white" 
                    style= " width: 100%; padding: 1em; background-color: #737188CC;  opacity: 0.7; ">
-      
-      
-      <div id="ConsoleText" v-on:click="clearConsole()" 
-        class="w3-border"
-        style ="background-color:#737188CC; padding: 0em 0px; margin: 0px; line-height:100%" > 
-        <pre style="padding: 0 1rem; white-space: pre-wrap;">{{consoletext}}</pre>
-      </div>     
-    
+            
+    <div id="ConsoleText" v-on:click="clearConsole()" 
+      class="w3-border"
+      style ="background-color:#737188CC; padding: 0em 0px; margin: 0px; line-height:100%" > 
+      <pre style="padding: 0 1rem; white-space: pre-wrap;">{{consoletext}}</pre>
+    </div>     
+  
     <div id="pickup" v-on:click="pickUpButton()" class="w3-col s2 w3-button w3-border w3-hover-teal"> 
         {{ text }}
     </div> 

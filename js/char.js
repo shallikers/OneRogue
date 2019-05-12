@@ -1,24 +1,31 @@
 console.log("init char");
 
-var vucharHealth = new Vue({
-    el: '#Health',
-    data: {health: '50:50'}
+var vuChar = new Vue ({
+    el: '#charData',
+    data: {name: 'fred', health: '50:50', fatigue: '50:50', magic: '50:50', experience: '50:50'  }
+   
 })
 
-var vucharMagic = new Vue({
-    el: '#Magic',
-    data: {magic: '50:50'} 
-})
 
-var vucharFatigue = new Vue({
-    el: '#Fatigue',
-    data: {fatigue: '50:50'} 
-})
+// var vucharHealth = new Vue({
+//     el: '#Health',
+//     data: {health: '50:50'}
+// })
 
-var vucharExperience = new Vue({
-    el: '#Experience',
-    data: {experience: '50:50'} 
-})
+// var vucharMagic = new Vue({
+//     el: '#Magic',
+//     data: {magic: '50:50'} 
+// })
+
+// var vucharFatigue = new Vue({
+//     el: '#Fatigue',
+//     data: {fatigue: '50:50'} 
+// })
+
+// var vucharExperience = new Vue({
+//     el: '#Experience',
+//     data: {experience: '50:50'} 
+// })
 
 class player {
     constructor(){
@@ -41,6 +48,7 @@ class player {
         this._experience = 0;
 
         this._created = false;
+        this._charName = "Decimaster"
 
 
         // boolean character behaviour toggles
@@ -59,10 +67,11 @@ class player {
 
     updatePlayerView()
     {
-        vucharHealth.health = this._health + " / " + this._mHealth;
-        vucharMagic.magic = this._magic + " / " + this._mMagic;
-        vucharFatigue.fatigue = this._fatigue + " / " + this._mFatigue;
-        vucharExperience.experience = this._experience + " / " + this._mExperience;
+        vuChar.name = this._charName;
+        vuChar.health = this._health + " / " + this._mHealth;
+        vuChar.magic = this._magic + " / " + this._mMagic;
+        vuChar.fatigue = this._fatigue + " / " + this._mFatigue;
+        vuChar.experience = this._experience + " / " + this._mExperience;
     }
 
     placePlayer()
