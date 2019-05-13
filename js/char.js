@@ -6,27 +6,6 @@ var vuChar = new Vue ({
    
 })
 
-
-// var vucharHealth = new Vue({
-//     el: '#Health',
-//     data: {health: '50:50'}
-// })
-
-// var vucharMagic = new Vue({
-//     el: '#Magic',
-//     data: {magic: '50:50'} 
-// })
-
-// var vucharFatigue = new Vue({
-//     el: '#Fatigue',
-//     data: {fatigue: '50:50'} 
-// })
-
-// var vucharExperience = new Vue({
-//     el: '#Experience',
-//     data: {experience: '50:50'} 
-// })
-
 class player {
     constructor(){
         console.log("construct char");    

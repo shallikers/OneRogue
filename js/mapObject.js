@@ -130,8 +130,8 @@ class itemLibrary{
             "Abracadabra:Scroll",
             "Shazzam:Scroll",
             "Boom:Scroll",
-            "Handle with care:Scroll",
-            "Life is wasted on the living:Scroll",
+            "Handle me:Scroll",
+            "Simple:Scroll",
             "Burn After Reading:Scroll",
             "Zaaaap:Scroll",
             "Powwww:Scroll",
@@ -218,13 +218,16 @@ class itemLibrary{
             case "scroll" : message = "You read the "; break;
         }
 
-        consoleLog(message + this._index[index].description);     
-        this._index[index].identified = true;
-        this.describe(index);
+        consoleLog(message + this._index[index].description);  
+    
+        if(this._index[index].identified == false){
+            this._index[index].identified = true;
+            this.describe(index);
+            consoleLog("It appears to be a " + item.itemType+ " of " + item.description); 
+        }  
+
         this._index[index].count--;
         vuUse.update();
-        consoleLog("It appears to be a " + item.itemType+ " of " + item.description);
-        
     }
 
 

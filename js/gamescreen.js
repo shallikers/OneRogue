@@ -47,6 +47,9 @@ function consoleLog(text){
 function pickUpButton(){
     if(g.getItem(char._x,char._y) == null){
         char._autoPickup = !char._autoPickup
+        if (char._autoPickup){
+            consoleLog("You turn auto pick up.") 
+        } else consoleLog("You turn auto pickup off.")
         char.describeLocal();
     }
     else char.interactWithLocal();
@@ -55,17 +58,33 @@ function pickUpButton(){
 var useToggle = true;
 useButton()
 
+
+function toggleElements(bool){
+    
+    let el2 = document.getElementById("charData");
+    let el3 = document.getElementById("controls");
+    if(useToggle){
+        if(window.innerWidth >=1000) return;
+        el2.hidden = true;
+        el3.hidden = true;
+
+    } else {
+        el2.hidden = false;
+        el3.hidden = false;
+
+    }    
+}
+
 function useButton(){
     let el = document.getElementById("useDIV");    
-    let el2 = document.getElementById("highlight");
     useToggle = !useToggle;
+    toggleElements(useToggle);
     if(useToggle){
-        el.hidden = false;
-        el2.hidden = true;
+        el.hidden = false;      
     } else {
         el.hidden = true;
-        el2.hidden = false;
-    }
+
+    }    
 
     
 }

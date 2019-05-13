@@ -49,7 +49,7 @@
 
   body{
     
-    background-color: #F37188;
+    background-color: #737188;
   
     
   }
@@ -63,6 +63,7 @@
   }
 
   #dirbuttons{
+    z-index: 1;
     font-size: 0pt; 
     width: 100%;   
     display: inline-block;
@@ -146,6 +147,22 @@
   <!-- Draw the player centralised in the frame the grid will move under them -->
   <img id="imPlayer" v-on:click="char.interactWithLocal()" src = "img/imPlayer.png" class="w3-display-middle">
 
+  <!-- Draw the control boxes for the player -->
+  <div id="controls" class = "w3-display-middle w3-text-white" 
+        style = "text-align: center; position:fixed;">
+      <div id = "dirbuttons" class = "w3-container">
+        <img id="dir1" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir2" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir3" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir4" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir5" v-on:click="char.interactWithLocal()" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir6" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir7" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir8" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+        <img id="dir9" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
+    </div>
+  </div>
+
   <!-- Put the key data in the top left hand corner of the screen floating over the grid -->
 
   <div id = "charData" style = "float: left; margin: 1em 1em 0 1em">
@@ -164,17 +181,18 @@
         <div id="Experience" class="w3-col s6  w3-center">{{ experience }}</div>   
       </div>
     </div>
+    <div style = "float: left; ">
+      <div id = "highlight" v-on:click="char.interactWithLocal()" class = "w3-container w3-border" style = "background-color :#737188CC"> 
+        <canvas id = "hlc" width=128 height = 128 class= "w3-display-middle"style = "text-align: center;"></canvas>
+        <!--   <img id = "highlightImage" src = "img\Potions\row-1-col-1.png" style = "width:100%"> -->
+      </div>
+      </div>
   </div>
   
 
  <!-- Draw a highlight of the players square next to the control boxes --> 
 
- <div style = "float: left; margin: 1em 1em 0 0em">
- <div id = "highlight" v-on:click="char.interactWithLocal()" class = "w3-container w3-border" style = "background-color :#737188CC"> 
-   <canvas id = "hlc" width=128 height = 128 class= "w3-display-middle"style = "text-align: center;"></canvas>
-   <!--   <img id = "highlightImage" src = "img\Potions\row-1-col-1.png" style = "width:100%"> -->
- </div>
-</div>
+ 
    
 <!-- inventory screen -->
 
@@ -191,7 +209,7 @@
         v-if="item.count>0"
         v-on:click = "il.useItem(item.index)" >
         <img v-bind:src="item.imageSrc" style="height: 1.5rem; padding: 0px"> 
-        {{item.count}} {{item.description}} 
+        {{item.count}} {{item.description}} &nbsp;
       </invItem>   
     </ul> 
   
@@ -202,21 +220,6 @@
   
 </div>
 
-<!-- Draw the control boxes for the player -->
-<div  class = "w3-display-middle w3-text-white" 
-      style = "text-align: center; position:fixed;">
-    <div id = "dirbuttons" class = "w3-container">
-    <img id="dir1" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir2" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir3" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir4" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir5" v-on:click="char.interactWithLocal()" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir6" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir7" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir8" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-    <img id="dir9" src = "img/OpenSquare.png" class="dirbutton disabledrag w3-hover-teal w3-border">
-  </div>
-</div>
 
 
 
