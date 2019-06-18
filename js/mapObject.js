@@ -46,9 +46,20 @@ class mapObject{
         this._image.onload = function() { drawMapObjectOnGrid(); }        
     }
 
-    draw(x,y){
-        ctx.drawImage(this._image,this.x,this.y);
+
+
+
+    draw(){
+        this._backgroundImage = ctx.getImageData(this._xoff,this._yoff,cs,cs);
+        ctx.drawImage(this._image,this._xoff,this._yoff);
     }
+
+    calcDrawLocation(){
+        this._xoff = g.getCell(this._x,this._y)._xoff;
+        this._yoff = g.getCell(this._x,this._y)._yoff - objectOffset;
+    }
+
+
 
     redrawObjBackground(){
         ctx.putImageData(this._backgroundImage,this._xoff,this._yoff);

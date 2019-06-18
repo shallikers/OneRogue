@@ -13,6 +13,7 @@ class cell {
         this._imgSrc;
         this._isDrawn = false;
         this._mapItem = null;
+        this._mapMonster = null;
 
 
  

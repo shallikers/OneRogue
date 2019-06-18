@@ -47,7 +47,16 @@ class grid  {
     removeItem(x,y) { this.getCell(x,y)._mapItem = null; }
     // check if it has an item
     hasItem(x,y) { if( (this.getCell(x,y)._mapItem != null) || (this.isSolid(x,y)) ) return true; else return false;}
-    
+ 
+    // // puts an Monster in the cell
+    // setMonster(x,y,o) { this.getCell(x,y)._mapMonster = o;}
+    // // gets an Monster in the cell
+    // getMonster(x,y) { return this.getCell(x,y)._mapMonster;}
+    // // removes an Monster in the cell
+    // removeMonster(x,y) { this.getCell(x,y)._mapMonster = null; }
+    // // check if it has an Monster
+    // hasMonster(x,y) { if( (this.getCell(x,y)._mapMonster != null) || (this.isSolid(x,y)) ) return true; else return false;}
+     
 
     // stops a cell from being carvable
     setNoCarve(x,y){ if(!this.getCell(x,y)._mustCarve) {this.getCell(x,y)._noCarve = true;}}
@@ -416,32 +425,42 @@ function drawscalledimage()
     hlctx.drawImage( tim , 0,0);
 }
 
-function moveGrid(x0,y0,x1,y1,time,steps){ //time in ms
-    let dx = (x1 - x0)/steps;
-    let dy = (y1 - y0)/steps;
-    let ts = time/steps;
-    moving = true;
-    let stepCount=0;
+// function moveGrid(x0,y0,x1,y1,time,steps, bounce){ //time in ms
+//     let dx = (x1 - x0)/steps;
+//     let dy = (y1 - y0)/steps;
+//     if (bounce) {dx /= 2; dy /=2; }
+//     let ts = time/steps;
+//     moving = true;
+//     let stepCount=0;
     
-    //var elem = document.getElementById("grid");
-    var id = setInterval(frame,time/steps);
+//     //var elem = document.getElementById("grid");
+//     var id = setInterval(frame,time/steps);
 
-    function frame() {
-        stepCount++;
-        if (stepCount>=steps) {
-          clearInterval(id);
-          moving=false;
-          setCanvasOrigin(x1,y1)
-        } else {
-            x0+=dx;
-            y0+=dy;
-            setCanvasOrigin(x0,y0)
-        }
-    }
+//     function frame() {
+//         stepCount++;
+//         if (stepCount>steps) {
+//           clearInterval(id);
+//           moving=false;
+//           setCanvasOrigin(x1,y1)
+//         } else {
+//             x0+=dx;
+//             y0+=dy;
+//             setCanvasOrigin(x0,y0)
+//             // now lets move the monsters
+
+//             for(let i=mons.length-1;i>=0; i--){
+//                 if(mons[i]._moving) mons[i].redrawObjBackground();
+//             }    
+
+//             for(let i=0; i< mons.length; i++){
+//                 mons[i].move(stepCount);
+//             }    
+//         }
+   
+
+//     }
     
 
-
-}
 
 
 console.log("grid");

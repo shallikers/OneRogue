@@ -3,7 +3,7 @@
 var mw = 40;  // maze width
 var mh = 40;  // maze height
 var cs = 32;  // size of a cell on the canvas
-var charsize = 16; // size of the character graphic
+var charsize = 32; // size of the character graphic
 var constDir = 0; // percentage chance of maintaining the same direction
 var joinPC = 1;
 var sideAvoidPC = 1;
@@ -13,14 +13,18 @@ var deadSidesPC = .5;
 var roomPC = .6;
 var objectOffset = Math.floor(cs/6);
 
-var objsPerLevel = 30;
+var objsPerLevel = 9;
 
 var cx = 24;
 var cy = 24;
 var moving = false;
 var keepMoving = false;
 
-var animTime = 200;
+// animation properties
+var animTime = 150;
+var animSteps = 4; // must be even  steps must start at one to animSteps 
+var animDelta = cs / animSteps;
+var animLastStep = 5;
 
 // create the game canvas
 var canvas = document.createElement("CANVAS");
@@ -100,6 +104,8 @@ var g = new grid();
 //construct the item library
 var il = new itemLibrary();
 
+
+
 Vue.component('invItem', {
     props: {
         item: Object
@@ -113,7 +119,8 @@ var vuUse = new Vue({
     }
 })
 
-//var mos = new Array();
+// monsters on the map
+var mons = new Array();
 
 //console.log("construct player");
 var char = new player();
