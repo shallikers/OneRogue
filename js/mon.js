@@ -138,6 +138,13 @@ class monster extends mapObject{
         this._y = this._ny;
     }
 
+    draw(){
+        // if ((this._dx < 1) ||(this._dx ==0 && this._dy >0)){
+        //     ctx.scale(-1,1);
+        // } else ctx.scale(1,1);
+        super.draw();
+    }
+
     
 
    
